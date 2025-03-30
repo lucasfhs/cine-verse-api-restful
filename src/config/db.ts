@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import "dotenv/config";
-
+import Logger from "./logger";
 export default async function connect() {
   try {
     const dbUri = process.env.MONGO_DB_URI;
@@ -8,8 +8,8 @@ export default async function connect() {
       throw new Error("Db uri cannot be null.");
     }
     mongoose.connect(dbUri);
-    console.log("Successfully connected to mongodb server.");
+    Logger.info("Successfully connected to mongodb server");
   } catch (error: any) {
-    console.error(error.message);
+    Logger.error(error.message);
   }
 }

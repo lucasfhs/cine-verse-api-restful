@@ -1,10 +1,11 @@
 import app from "./src/app";
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
+
 const port = process.env.PORT || 3000;
 import db from "./src/config/db";
 import Logger from "./src/config/logger";
 app.listen(port, async () => {
   await db();
-  console.log(`Server Started on http://localhost:${port}`);
-  Logger.info("Server Started");
+  Logger.info(`Server Started on http://localhost:${port}`);
 });
