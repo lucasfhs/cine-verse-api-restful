@@ -1,0 +1,85 @@
+erDiagram
+    USER {
+        string _id
+        string name
+        string email
+        string password
+        string avatar
+        string role "regular | critic | admin"
+    }
+    
+    MOVIE {
+        string _id
+        string title
+        string description
+        int year
+        string genre
+        float average_rating
+        string tmdb_id
+    }
+    
+    REVIEW {
+        string _id
+        string user_id
+        string movie_id
+        int rating "1-5"
+        string content
+        boolean spoiler
+        date createdAt
+    }
+    
+    COMMENT {
+        string _id
+        string review_id
+        string user_id
+        string content
+        date createdAt
+    }
+    
+    LIKE {
+        string _id
+        string user_id
+        string review_id
+    }
+    
+    REPORT {
+        string _id
+        string user_id
+        string review_id
+        string reason
+        date createdAt
+    }
+    
+    FOLLOW {
+        string _id
+        string follower_id
+        string followed_id
+    }
+    
+    LIST {
+        string _id
+        string user_id
+        string name
+        string description
+        array movies
+    }
+    
+    MESSAGE {
+        string _id
+        string sender_id
+        string receiver_id
+        string content
+        date createdAt
+    }
+    
+    USER ||--o{ REVIEW : writes
+    USER ||--o{ COMMENT : comments
+    USER ||--o{ LIKE : likes
+    USER ||--o{ REPORT : reports
+    USER ||--o{ FOLLOW : follows
+    USER ||--o{ LIST : creates
+    USER ||--o{ MESSAGE : sends
+    MOVIE ||--o{ REVIEW : has
+    REVIEW ||--o{ COMMENT : receives
+    REVIEW ||--o{ LIKE : receives
+    REVIEW ||--o{ REPORT : can_be_reported
