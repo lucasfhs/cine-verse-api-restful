@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export const movieCreateValidation = () => {
   return [
@@ -39,5 +39,17 @@ export const movieCreateValidation = () => {
       .withMessage("Actors must be an array")
       .notEmpty()
       .withMessage("Actors is required"),
+  ];
+};
+
+export const findOneMovieValidation = () => {
+  return [
+    param("id")
+      .isString()
+      .withMessage("id must be string.")
+      .notEmpty()
+      .withMessage("id is required.")
+      .equals("id")
+      .withMessage("id is required."),
   ];
 };

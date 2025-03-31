@@ -1,15 +1,19 @@
 import mongoose from "mongoose";
 import "dotenv/config";
 import Logger from "./logger";
+
 export default async function connect() {
   try {
     const dbUri = process.env.MONGO_DB_URI;
-    if (typeof dbUri == "undefined") {
-      throw new Error("Db uri cannot be null.");
+    if (!dbUri) {
+      throw new Error("Db URI cannot be null.");
     }
-    mongoose.connect(dbUri);
-    Logger.info("Successfully connected to mongodb server");
+
+    await mongoose.connect(dbUri);
+
+    Logger.info("Successfully connected to MongoDB server");
   } catch (error: any) {
-    Logger.error(error.message);
+    Logger.error(`Database connection failed: ${error.message}`);
+    process.exit(1);
   }
 }
