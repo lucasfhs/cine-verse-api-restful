@@ -6,7 +6,12 @@
  */
 
 import { Router } from "express";
-import { register, login, refreshToken, logout } from "../controllers/auth";
+import {
+  register,
+  login,
+  refreshToken,
+  logout,
+} from "../controllers/core/auth";
 
 /**
  * Express router for authentication routes

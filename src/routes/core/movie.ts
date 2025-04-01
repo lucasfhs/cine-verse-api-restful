@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createOneMovie, findOneMovie } from "../../controllers/movie";
+import { createOneMovie, findOneMovie } from "../../controllers/core/movie";
 import {
   movieCreateValidation,
   findOneMovieValidation,

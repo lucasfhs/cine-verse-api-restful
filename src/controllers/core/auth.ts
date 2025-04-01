@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { generateAccessToken, generateRefreshToken } from "../utils/tokenUtils";
-import { UserModel, UserType } from "../models/User";
-import Logger from "../config/logger";
+import { generateAccessToken, generateRefreshToken } from "../../utils/tokenUtils";
+import { UserModel, UserType } from "../../models/core/User";
+import Logger from "../../config/logger";
 
 /**
  * Register a new user

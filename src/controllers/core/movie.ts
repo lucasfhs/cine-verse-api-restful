@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { MovieModel } from "../models/Movie";
-import Logger from "../config/logger";
+import { MovieModel } from "../../models/core/Movie";
+import Logger from "../../config/logger";
 import { Types } from "mongoose";
 
 /**
