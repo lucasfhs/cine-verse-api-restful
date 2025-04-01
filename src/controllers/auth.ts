@@ -4,6 +4,17 @@ import jwt from "jsonwebtoken";
 import { generateAccessToken, generateRefreshToken } from "../utils/tokenUtils";
 import { UserModel, UserType } from "../models/User";
 import Logger from "../config/logger";
+
+/**
+ * Register a new user
+ * @async
+ * @function register
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} - Returns a response with the created user data or an error
+ * @throws {MongoServerError} - If email is not unique (error code 11000)
+ * @throws {Error} - For any other server error
+ */
 export const register = async (req: Request, res: Response) => {
   try {
     const {
@@ -61,6 +72,15 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Authenticate user and generate access/refresh tokens
+ * @async
+ * @function login
+ * @param {Request} req - Express request object containing email and password
+ * @param {Response} res - Express response object
+ * @returns {Promise<void>} - Returns access token and sets refresh token as HTTP-only cookie
+ * @throws {Error} - If credentials are invalid or server error occurs
+ */
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -86,6 +106,13 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Generate a new access token using a refresh token
+ * @function refreshToken
+ * @param {Request} req - Express request object containing refresh token cookie
+ * @param {Response} res - Express response object
+ * @returns {void} - Returns new access token or error if refresh token is invalid
+ */
 export const refreshToken = (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
 
@@ -106,6 +133,13 @@ export const refreshToken = (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Logout user by clearing refresh token cookie
+ * @function logout
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @returns {void} - Confirmation of successful logout
+ */
 export const logout = (req: Request, res: Response) => {
   res.clearCookie("refreshToken");
   res.json({ message: "Logged out successfully" });
