@@ -53,3 +53,15 @@ export const findOneMovieValidation = () => {
       .withMessage("id is required."),
   ];
 };
+
+export const updateMovieValidation = () => {
+  return [
+    param("id")
+      .isString()
+      .withMessage("id must be string.")
+      .notEmpty()
+      .withMessage("id is required.")
+      .equals("id")
+      .withMessage("id is required."),
+  ];
+};
