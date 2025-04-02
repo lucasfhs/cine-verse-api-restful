@@ -27,4 +27,4 @@ const actorSchema = new Schema(
  * Mongoose model for Actor based on actorSchema.
  * @type {Model<ActorSchema>}
  */
-export const Actor = model("Actor", actorSchema);
+export const ActorModel = model("Actor", actorSchema);

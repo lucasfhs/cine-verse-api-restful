@@ -47,6 +47,6 @@ const reportSchema = new Schema(
 /**
  * Mongoose model for Report documents.
  * @constant {Model}
- * @exports ReportSchema
+ * @exports ReportModel
  */
-export const ReportSchema = model("Report", reportSchema);
+export const ReportModel = model("Report", reportSchema);

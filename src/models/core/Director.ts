@@ -28,4 +28,4 @@ const directorSchema = new Schema(
  * Mongoose model for Director documents.
  * @type {Model<DirectorSchema>}
  */
-export const Director = model("Director", directorSchema);
+export const DirectorModel = model("Director", directorSchema);

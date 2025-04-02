@@ -36,4 +36,4 @@ const likeSchema = new Schema({
  * @class Like
  * @extends mongoose.Model
  */
-export const LikeSchema = model("Like", likeSchema);
+export const LikeModel = model("Like", likeSchema);

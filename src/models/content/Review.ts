@@ -40,4 +40,4 @@ const reviewSchema = new Schema(
  * Mongoose model for Review documents.
  * @type {Model<ReviewSchema>}
  */
-export const Review = model("Review", reviewSchema);
+export const ReviewModel = model("Review", reviewSchema);

@@ -24,6 +24,6 @@ const followSchema = new Schema({
  * Represents a follow relationship where one user follows another.
  * @name Follow
  * @model
- * @type {Model<FollowSchema>}
+ * @type {Model<FollowModel>}
  */
-export const FollowSchema = model("Follow", followSchema);
+export const FollowModel = model("Follow", followSchema);

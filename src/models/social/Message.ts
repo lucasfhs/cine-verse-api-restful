@@ -33,6 +33,6 @@ const messageSchema = new Schema(
 
 /**
  * Mongoose model for Message documents.
- * @type {Model<MessageSchema>}
+ * @type {Model<MessageModel>}
  */
-export const Message = model("Message", messageSchema);
+export const MessageModel = model("Message", messageSchema);

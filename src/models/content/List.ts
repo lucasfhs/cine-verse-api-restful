@@ -33,4 +33,4 @@ const listSchema = new Schema(
  * Mongoose model for the List schema.
  * @type {Model<ListSchema>}
  */
-export const ListSchema = model("List", listSchema);
+export const ListModel = model("List", listSchema);
