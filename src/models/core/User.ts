@@ -6,15 +6,8 @@ import { model, Schema } from "mongoose";
  */
 const userSchema = new Schema(
   {
-    /** User's full name */
     name: { type: String, require: true },
-    /** User's display nickname */
     nickname: { type: String, required: true },
-    /**
-     * User's email address
-     * @index
-     * @unique
-     */
     email: { type: String, required: true, index: true, unique: true },
     /** User's hashed password */
     password: { type: String, required: true },
@@ -33,7 +26,6 @@ const userSchema = new Schema(
     phoneNumber: { type: Array },
   },
   {
-    /** Automatically add createdAt and updatedAt timestamps */
     timestamps: true,
   }
 );
