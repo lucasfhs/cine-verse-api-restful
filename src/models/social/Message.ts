@@ -30,7 +30,6 @@ const messageSchema = new Schema(
   },
   { timestamps: true }
 );
-
 /**
  * Mongoose model for Message documents.
  * @type {Model<MessageModel>}
