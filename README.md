@@ -89,6 +89,11 @@
 | RNF15 | Versionamento da API (v1/, v2/)         |
 | RNF16 | Mensagens de erro claras e padronizadas |
 
+### Regra de Negócio
+
+Um usuário não pode seguir ele mesmo.
+Não deve ser possível seguir uma pessoa várias vezes.
+
 ## 📦 Dependências Principais
 
 - Express.js

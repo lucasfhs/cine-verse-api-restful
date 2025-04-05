@@ -6,19 +6,23 @@ import { model, Schema } from "mongoose";
  * @property {Schema.Types.ObjectId} follower_id - The ID of the user who is following (references User model).
  * @property {Schema.Types.ObjectId} followed_id - The ID of the user being followed (references User model).
  */
-const followSchema = new Schema({
-  follower_id: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const followSchema = new Schema(
+  {
+    follower_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    followed_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  followed_id: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-});
-
+  { timestamps: true }
+);
+// Índice composto para garantir unicidade da relação
+followSchema.index({ follower_id: 1, followed_id: 1 }, { unique: true });
 /**
  * Mongoose model for Follow documents.
  * Represents a follow relationship where one user follows another.
