@@ -8,6 +8,7 @@ export async function findAllUsers(req: Request, res: Response) {
     if (users.length > 0) {
       res.status(200).json({
         success: true,
+        count: users.length,
         data: users,
       });
     } else {

@@ -17,6 +17,7 @@ export async function findAllMovies(req: Request, res: Response) {
     if (movie.length > 0) {
       res.status(200).json({
         success: true,
+        count: movie.length,
         data: movie,
       });
     } else {

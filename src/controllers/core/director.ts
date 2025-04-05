@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
-import { ActorModel } from "../../models/core/Actor";
+import { DirectorModel } from "../../models/core/Director";
 import Logger from "../../config/logger";
-import { Types } from "mongoose";
 
-export async function findAllXvariables(req: Request, res: Response) {
+export async function findAllDirectors(req: Request, res: Response) {
   try {
-    const Xvariable = await XModel.find();
-    if (Xvariable.length > 0) {
+    const directors: object[] = await DirectorModel.find();
+    if (directors.length > 0) {
       res.status(200).json({
         success: true,
-        data: Xvariable,
+        count: directors.length,
+        data: directors,
       });
     } else {
       res.status(404).json({
         success: false,
         error: {
           code: 404,
-          message: "No Xvariables found.",
+          message: "No Directors found.",
         },
       });
     }
   } catch (error: any) {
-    Logger.error(`Error on find Xvariable: ${error.message}`);
+    Logger.error(`Error on find Directors: ${error.message}`);
     res.status(500).json({
       success: false,
       error: {
@@ -32,35 +32,26 @@ export async function findAllXvariables(req: Request, res: Response) {
   }
 }
 
-export async function findOneXvariable(req: Request, res: Response) {
+export async function findOneDirector(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({
-        success: false,
-        error: {
-          code: 400,
-          message: "Invalid ID format",
-        },
-      });
-    }
-    const Xvariable = await XModel.findOne({ _id: id });
-    if (Xvariable) {
+    const director = await DirectorModel.findOne({ _id: id });
+    if (director) {
       res.status(200).json({
         success: true,
-        data: Xvariable,
+        data: director,
       });
     } else {
       res.status(404).json({
         success: false,
         error: {
           code: 404,
-          message: "Xvariable not found.",
+          message: "Director not found.",
         },
       });
     }
   } catch (error: any) {
-    Logger.error(`Error on find Xvariable: ${error.message}`);
+    Logger.error(`Error on find Director: ${error.message}`);
     res.status(500).json({
       success: false,
       error: {
@@ -71,58 +62,35 @@ export async function findOneXvariable(req: Request, res: Response) {
   }
 }
 
-export async function updateOneXvariable(req: Request, res: Response) {
+export async function updateOneDirector(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({
-        success: false,
-        error: {
-          code: 400,
-          message: "Invalid ID format",
-        },
-      });
-    }
-    const {
-      title,
-      description,
-      year,
-      genre,
-      average_rating,
-      tmdb_id,
-      actors,
-      directors,
-    } = req.body;
-    const Xvariable = await XModel.findOneAndUpdate(
+    const { name, birthdate, nationality } = req.body;
+    const director = await DirectorModel.findOneAndUpdate(
       { _id: id },
       {
-        title,
-        description,
-        year,
-        genre,
-        average_rating,
-        tmdb_id,
-        actors,
-        directors,
+        name,
+        birthdate,
+        nationality,
       },
       { new: true }
     );
-    if (Xvariable) {
+    if (director) {
       res.status(200).json({
         success: true,
-        data: Xvariable,
+        data: director,
       });
     } else {
       res.status(404).json({
         success: false,
         error: {
           code: 404,
-          message: "Xvariable not found.",
+          message: "Director not found.",
         },
       });
     }
   } catch (error: any) {
-    Logger.error(`Error on find Xvariable: ${error.message}`);
+    Logger.error(`Error on find Director: ${error.message}`);
     res.status(500).json({
       success: false,
       error: {
@@ -133,80 +101,58 @@ export async function updateOneXvariable(req: Request, res: Response) {
   }
 }
 
-export async function deleteOneXvariable(req: Request, res: Response) {
+export async function deleteOneDirector(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({
-        success: false,
-        error: {
-          code: 400,
-          message: "Invalid ID format",
-        },
-      });
-    }
-    const Xvariable = await XModel.findOneAndDelete({ _id: id });
-    res.status(201).json({
-      success: true,
-      data: Xvariable,
-    });
-  } catch (error: any) {
-    Logger.error(`Error creating Xvariable: ${error.message}`);
-    if (error.name === "MongoServerError" && error.code === 11000) {
-      res.status(409).json({
-        success: false,
-        error: {
-          code: 409,
-          message: "Xvariable title must be unique",
-        },
+
+    const director = await DirectorModel.findOneAndDelete({ _id: id });
+    if (director) {
+      res.status(201).json({
+        success: true,
+        data: director,
       });
     } else {
-      res.status(500).json({
+      res.status(404).json({
         success: false,
         error: {
-          code: 500,
-          message: "Internal server error",
+          code: 404,
+          message: "Director not found.",
         },
       });
     }
+  } catch (error: any) {
+    Logger.error(`Error delete Director: ${error.message}`);
+
+    res.status(500).json({
+      success: false,
+      error: {
+        code: 500,
+        message: "Internal server error",
+      },
+    });
   }
 }
 
-export async function createOneXvariable(req: Request, res: Response) {
+export async function createOneDirector(req: Request, res: Response) {
   try {
-    const {
-      title,
-      description,
-      year,
-      genre,
-      average_rating,
-      tmdb_id,
-      actors,
-      directors,
-    } = req.body;
-
-    const newXvariable = await XModel.create({
-      title,
-      description,
-      year,
-      genre,
-      average_rating,
-      tmdb_id,
-      actors,
-      directors,
+    const { name, birthdate, nationality } = req.body;
+    const newDirector = await DirectorModel.create({
+      name,
+      birthdate,
+      nationality,
     });
     res.status(201).json({
       success: true,
-      data: newXvariable,
+      data: newDirector,
     });
   } catch (error: any) {
-    Logger.error(`Error creating Xvariable: ${error.message}`);
+    Logger.error(`Error creating Director: ${error.message}`);
     if (error.name === "MongoServerError" && error.code === 11000) {
       res.status(409).json({
         success: false,
         error: {
           code: 409,
-          message: "Xvariable title must be unique",
+          message: "Director email must be unique",
         },
       });
     } else {

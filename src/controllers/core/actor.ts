@@ -9,6 +9,7 @@ export async function findAllActors(req: Request, res: Response) {
     if (actors.length > 0) {
       res.status(200).json({
         success: true,
+        count: actors.length,
         data: actors,
       });
     } else {
