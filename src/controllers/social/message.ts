@@ -1,15 +1,22 @@
 import { Request, Response } from "express";
 import { MessageModel } from "../../models/social/Message";
+import { encryptMessage, decryptMessage } from "../../utils/crypto";
 import Logger from "../../config/logger";
 
 export async function findAllMessages(req: Request, res: Response) {
   try {
-    const messages: object[] = await MessageModel.find();
+    const messages = await MessageModel.find().lean();
+
     if (messages.length > 0) {
+      const decryptedMessages = messages.map((msg) => ({
+        ...msg,
+        content: msg.content ? decryptMessage(msg.content) : null,
+      }));
+
       res.status(200).json({
         success: true,
-        count: messages.length,
-        data: messages,
+        count: decryptedMessages.length,
+        data: decryptedMessages,
       });
     } else {
       res.status(404).json({
@@ -21,7 +28,7 @@ export async function findAllMessages(req: Request, res: Response) {
       });
     }
   } catch (error: any) {
-    Logger.error(`Error on find Messages: ${error.message}`);
+    console.error(`Error on find Messages: ${error.message}`);
     res.status(500).json({
       success: false,
       error: {
@@ -37,6 +44,8 @@ export async function findOneMessage(req: Request, res: Response) {
     const id = req.params.id;
     const message = await MessageModel.findOne({ _id: id });
     if (message) {
+      const decryptedContent = decryptMessage(message.content!);
+      message.content = decryptedContent;
       res.status(200).json({
         success: true,
         data: message,
@@ -66,12 +75,13 @@ export async function updateOneMessage(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const { sender_id, receiver_id, content } = req.body;
+    const cryptoContent = encryptMessage(content);
     const message = await MessageModel.findOneAndUpdate(
       { _id: id },
       {
         sender_id,
         receiver_id,
-        content,
+        content: cryptoContent,
       },
       { new: true }
     );
@@ -136,11 +146,13 @@ export async function deleteOneMessage(req: Request, res: Response) {
 export async function createOneMessage(req: Request, res: Response) {
   try {
     const { sender_id, receiver_id, content } = req.body;
+    const cryptoContent = encryptMessage(content);
     const newMessage = await MessageModel.create({
       sender_id,
       receiver_id,
-      content,
+      content: cryptoContent,
     });
+
     res.status(201).json({
       success: true,
       data: newMessage,

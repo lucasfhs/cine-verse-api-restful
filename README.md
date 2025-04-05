@@ -93,6 +93,7 @@
 
 Um usuário não pode seguir ele mesmo.
 Não deve ser possível seguir uma pessoa várias vezes.
+As mensagens enviadas de usuario a usuario devem estar criptografadas no banco.
 
 ## 📦 Dependências Principais
 
