@@ -38,8 +38,12 @@ const reportSchema = new Schema(
     /**
      * Reason for the report.
      * @type {String}
+     * @required
      */
-    reason: String,
+    reason: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
