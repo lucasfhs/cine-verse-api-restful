@@ -6,6 +6,7 @@ import directorRoutes from "./core/director";
 import followRoutes from "./social/follow";
 import messageRoutes from "./social/message";
 import reportRoutes from "./social/report";
+import commentRoutes from "./content/comment";
 import morganMiddleware from "../middleware/morgan";
 
 const router = Router();
@@ -17,4 +18,5 @@ router.use(directorRoutes);
 router.use(followRoutes);
 router.use(messageRoutes);
 router.use(reportRoutes);
+router.use(commentRoutes);
 export default router;
