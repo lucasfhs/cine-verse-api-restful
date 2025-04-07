@@ -53,7 +53,7 @@ export const updateCommentValidation = () => {
       .notEmpty()
       .withMessage("The review_id is required.")
       .custom(isValidMongodbId),
-    body("reason")
+    body("content")
       .isString()
       .withMessage("The content must be a string.")
       .notEmpty()

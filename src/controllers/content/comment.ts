@@ -23,7 +23,7 @@ export async function findAllComments(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Comment: "No Comments found.",
+          message: "No Comments found.",
         },
       });
     }
@@ -33,7 +33,7 @@ export async function findAllComments(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Comment: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -55,7 +55,7 @@ export async function findOneComment(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Comment: "Comment not found.",
+          message: "Comment not found.",
         },
       });
     }
@@ -65,7 +65,7 @@ export async function findOneComment(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Comment: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -95,7 +95,7 @@ export async function updateOneComment(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Comment: "Comment not found.",
+          message: "Comment not found.",
         },
       });
     }
@@ -105,7 +105,7 @@ export async function updateOneComment(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Comment: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -126,7 +126,7 @@ export async function deleteOneComment(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Comment: "Comment not found.",
+          message: "Comment not found.",
         },
       });
     }
@@ -137,7 +137,7 @@ export async function deleteOneComment(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Comment: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -164,7 +164,7 @@ export async function createOneComment(req: Request, res: Response) {
         success: false,
         error: {
           code: 409,
-          Comment: "Error on creating Comment.",
+          message: "Error on creating Comment.",
         },
       });
     } else {
@@ -172,7 +172,7 @@ export async function createOneComment(req: Request, res: Response) {
         success: false,
         error: {
           code: 500,
-          Comment: "Internal server error",
+          message: "Internal server error",
         },
       });
     }

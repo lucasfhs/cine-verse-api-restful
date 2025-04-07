@@ -24,7 +24,7 @@ export async function findAllReports(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Report: "No Reports found.",
+          message: "No Reports found.",
         },
       });
     }
@@ -34,7 +34,7 @@ export async function findAllReports(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Report: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -56,7 +56,7 @@ export async function findOneReport(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Report: "Report not found.",
+          message: "Report not found.",
         },
       });
     }
@@ -66,7 +66,7 @@ export async function findOneReport(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Report: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -96,7 +96,7 @@ export async function updateOneReport(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Report: "Report not found.",
+          message: "Report not found.",
         },
       });
     }
@@ -106,7 +106,7 @@ export async function updateOneReport(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Report: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -127,7 +127,7 @@ export async function deleteOneReport(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Report: "Report not found.",
+          message: "Report not found.",
         },
       });
     }
@@ -138,7 +138,7 @@ export async function deleteOneReport(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Report: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -165,7 +165,7 @@ export async function createOneReport(req: Request, res: Response) {
         success: false,
         error: {
           code: 409,
-          Report: "Error on creating report.",
+          message: "Error on creating report.",
         },
       });
     } else {
@@ -173,7 +173,7 @@ export async function createOneReport(req: Request, res: Response) {
         success: false,
         error: {
           code: 500,
-          Report: "Internal server error",
+          message: "Internal server error",
         },
       });
     }

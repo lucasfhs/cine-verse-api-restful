@@ -21,7 +21,7 @@ router.get(
   validate,
   findOneComment
 );
-router.post("/Comment", commentCreateValidation(), validate, createOneComment);
+router.post("/comment", commentCreateValidation(), validate, createOneComment);
 router.put(
   "/comment/:id",
   updateCommentValidation(),
