@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { LikeModel } from "../../models/content/Like";
-import { encryptMessage, decryptMessage } from "../../utils/crypto";
 import Logger from "../../config/logger";
 
 export async function findAllLikes(req: Request, res: Response) {
@@ -57,7 +56,7 @@ export async function findOneLike(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Like: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -85,7 +84,7 @@ export async function updateOneLike(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Like: "Like not found.",
+          message: "Like not found.",
         },
       });
     }
@@ -95,7 +94,7 @@ export async function updateOneLike(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Like: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -116,7 +115,7 @@ export async function deleteOneLike(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Like: "Like not found.",
+          message: "Like not found.",
         },
       });
     }
@@ -135,12 +134,10 @@ export async function deleteOneLike(req: Request, res: Response) {
 
 export async function createOneLike(req: Request, res: Response) {
   try {
-    const { user_id, review_id, content } = req.body;
-    const cryptoContent = encryptMessage(content);
+    const { user_id, review_id } = req.body;
     const newLike = await LikeModel.create({
       user_id,
       review_id,
-      content: cryptoContent,
     });
 
     res.status(201).json({
