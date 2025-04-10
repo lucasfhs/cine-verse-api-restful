@@ -8,6 +8,7 @@ import messageRoutes from "./social/message";
 import reportRoutes from "./social/report";
 import commentRoutes from "./content/comment";
 import likeRoutes from "./content/like";
+import listRoutes from "./content/list";
 import morganMiddleware from "../middleware/morgan";
 
 const router = Router();
@@ -21,4 +22,5 @@ router.use(messageRoutes);
 router.use(reportRoutes);
 router.use(commentRoutes);
 router.use(likeRoutes);
+router.use(listRoutes);
 export default router;

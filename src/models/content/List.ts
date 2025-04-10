@@ -22,9 +22,13 @@ const listSchema = new Schema(
       ref: "User",
       required: true,
     },
-    name: String,
-    description: String,
-    movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
+    name: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    description: { type: String, required: true },
+    movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],  
   },
   { timestamps: true }
 );
