@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import actorRoutes from "./core/actor";
 import movieRoutes from "./core/movie";
 import userRoutes from "./core/user";
@@ -9,6 +9,7 @@ import reportRoutes from "./social/report";
 import commentRoutes from "./content/comment";
 import likeRoutes from "./content/like";
 import listRoutes from "./content/list";
+import reviewRoutes from "./content/review";
 import morganMiddleware from "../middleware/morgan";
 
 const router = Router();
@@ -23,4 +24,5 @@ router.use(reportRoutes);
 router.use(commentRoutes);
 router.use(likeRoutes);
 router.use(listRoutes);
+router.use(reviewRoutes);
 export default router;

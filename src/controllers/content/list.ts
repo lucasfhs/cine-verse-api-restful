@@ -16,7 +16,7 @@ export async function findAllLists(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          List: "No Lists found.",
+          message: "No Lists found.",
         },
       });
     }
@@ -26,7 +26,7 @@ export async function findAllLists(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        List: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -46,7 +46,7 @@ export async function findOneList(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          List: "List not found.",
+          message: "List not found.",
         },
       });
     }
@@ -127,7 +127,7 @@ export async function deleteOneList(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        List: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -154,7 +154,7 @@ export async function createOneList(req: Request, res: Response) {
         success: false,
         error: {
           code: 409,
-          List: "Error on creating List.",
+          message: "Error on creating List.",
         },
       });
     } else {
@@ -162,7 +162,7 @@ export async function createOneList(req: Request, res: Response) {
         success: false,
         error: {
           code: 500,
-          List: "Internal server error",
+          message: "Internal server error",
         },
       });
     }

@@ -16,7 +16,7 @@ export async function findAllLikes(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Like: "No Likes found.",
+          message: "No Likes found.",
         },
       });
     }
@@ -26,7 +26,7 @@ export async function findAllLikes(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Like: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -46,7 +46,7 @@ export async function findOneLike(req: Request, res: Response) {
         success: false,
         error: {
           code: 404,
-          Like: "Like not found.",
+          message: "Like not found.",
         },
       });
     }
@@ -126,7 +126,7 @@ export async function deleteOneLike(req: Request, res: Response) {
       success: false,
       error: {
         code: 500,
-        Like: "Internal server error",
+        message: "Internal server error",
       },
     });
   }
@@ -151,7 +151,7 @@ export async function createOneLike(req: Request, res: Response) {
         success: false,
         error: {
           code: 409,
-          Like: "Error on creating Like.",
+          message: "Error on creating Like.",
         },
       });
     } else {
@@ -159,7 +159,7 @@ export async function createOneLike(req: Request, res: Response) {
         success: false,
         error: {
           code: 500,
-          Like: "Internal server error",
+          message: "Internal server error",
         },
       });
     }

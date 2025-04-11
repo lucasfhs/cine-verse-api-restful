@@ -30,7 +30,7 @@ const reviewSchema = new Schema(
       required: true,
     },
     rating: { type: Number, min: 1, max: 5, required: true },
-    content: String,
+    content: { type: String, required: true },
     spoiler: { type: Boolean, default: false },
   },
   { timestamps: true }
