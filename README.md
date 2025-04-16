@@ -104,3 +104,5 @@ As mensagens enviadas de usuario a usuario devem estar criptografadas no banco.
 - JWT (autenticação)
 - Nodemailer (emails)
 - Jest (testes)
+  mongodb://mongo:27017/expressApi
+  redis

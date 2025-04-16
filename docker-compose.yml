@@ -6,7 +6,19 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-
+  redis:
+    image: redis:7.4.2-alpine
+    container_name: redis-movie-api
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
   api:
     build: .
     container_name: movie-rest-api
@@ -14,6 +26,7 @@ services:
       - "8080:8080"
     depends_on:
       - mongo
+      - redis
     env_file:
       - .env
     environment:
@@ -21,3 +34,4 @@ services:
 
 volumes:
   mongo-data:
+  redis-data:

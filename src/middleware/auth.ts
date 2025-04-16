@@ -1,53 +1,89 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { isTokenBlacklisted, blacklistToken } from "../utils/blacklist";
+import Logger from "../config/logger";
+import { asyncHandler } from "../utils/asyncHandler";
 
-/**
- * Extended Express Request interface that includes an optional userId property.
- * This is used to attach the authenticated user's ID to the request object.
- */
 interface RequestAuthenticate extends Request {
   userId?: string;
 }
+interface RefreshRequest extends Request {
+  userId?: string;
+}
 
-/**
- * Express middleware for authenticating requests using JWT tokens.
- *
- * This middleware checks for a valid JWT in the Authorization header,
- * verifies it, and attaches the user ID to the request object if valid.
- *
- * @param {RequestAuthenticate} req - The Express request object, extended to include userId
- * @param {Response} res - The Express response object
- * @param {NextFunction} next - The Express next middleware function
- * @returns {void} If authentication fails, it returns a response with an error status.
- *                 If successful, it calls next() to continue to the next middleware.
- *
- * @example
- * // In your route setup:
- * app.get('/protected-route', authMiddleware, (req, res) => {
- *   // Only accessible with valid token
- *   res.send(`Hello user ${req.userId}`);
- * });
- */
-export const authMiddleware = (
-  req: RequestAuthenticate,
-  res: Response,
-  next: NextFunction
-) => {
-  const token = req.header("Authorization")?.split(" ")[1];
+export const authMiddleware = asyncHandler(
+  async (req: RequestAuthenticate, res: Response, next: NextFunction) => {
+    const token = req.header("Authorization")?.split(" ")[1];
 
-  if (!token) {
-    res.status(401).json({ message: "Access Token is required" });
-    return;
+    if (!token) {
+      return res.status(401).json({ message: "Access Token is required" });
+    }
+
+    const blacklisted = await isTokenBlacklisted(token);
+    if (blacklisted) {
+      Logger.warn(`Attempt to use blacklisted token: ${token}`);
+      return res.status(401).json({ message: "Token has been revoked" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as {
+        userId: string;
+      };
+
+      req.userId = decoded.userId;
+      next();
+    } catch (err: any) {
+      if (err.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Access token expired" });
+      } else if (err.name === "JsonWebTokenError") {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+
+      Logger.error(`Token verification error: ${err.message}`);
+      return res.status(500).json({ message: "Internal server error" });
+    }
   }
+);
 
-  try {
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as {
-      userId: string;
-    };
-    req.userId = decoded.userId;
+export const refreshAuthMiddleware = asyncHandler(
+  async (req: RefreshRequest, res: Response, next: NextFunction) => {
+    const refreshToken = req.cookies.refreshToken;
+    const accessToken = req.header("Authorization")?.split(" ")[1];
+
+    if (!accessToken) {
+      return res.status(401).json({
+        message: "Access token is required for refresh. Please login again.",
+      });
+    }
+
+    if (!refreshToken) {
+      return res.status(401).json({
+        message: "Refresh token is required.",
+      });
+    }
+
+    const isBlacklisted = await isTokenBlacklisted(refreshToken);
+    if (isBlacklisted) {
+      return res.status(403).json({
+        message: "Refresh token has been invalidated.",
+      });
+    }
+
+    const decodedRefresh = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!
+    ) as jwt.JwtPayload;
+
+    const decodedAccess = jwt.decode(accessToken) as jwt.JwtPayload | null;
+
+    if (decodedAccess?.exp) {
+      const expiresIn = Math.floor(decodedAccess.exp - Date.now() / 1000);
+      if (expiresIn > 0) {
+        await blacklistToken(accessToken, expiresIn);
+      }
+    }
+
+    req.userId = decodedRefresh.userId;
     next();
-  } catch (error) {
-    res.status(403).json({ message: "Invalid or expired token" });
-    return;
   }
-};
+);
