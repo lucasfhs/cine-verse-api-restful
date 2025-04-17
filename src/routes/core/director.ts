@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneDirector,
-  findAllDirectors,
-  createOneDirector,
-  updateOneDirector,
-  deleteOneDirector,
-} from "../../controllers/core/director";
+import { directorController } from "../../controllers/core/director";
 import {
   findOneDirectorValidation,
   directorCreateValidation,
@@ -14,30 +8,30 @@ import {
 } from "../../middleware/validators/core/directorValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
-router.get("/director", findAllDirectors);
+router.get("/director", directorController.findAll);
 router.get(
   "/director/:id",
   findOneDirectorValidation(),
   validate,
-  findOneDirector
+  directorController.findOne
 );
 router.post(
   "/director",
   directorCreateValidation(),
   validate,
-  createOneDirector
+  directorController.createOne
 );
 router.put(
   "/director/:id",
   updateDirectorValidation(),
   validate,
-  updateOneDirector
+  directorController.updateOne
 );
 router.delete(
   "/director/:id",
   deleteOneDirectorValidation(),
   validate,
-  deleteOneDirector
+  directorController.deleteOne
 );
 
 export default router;

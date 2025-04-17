@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneFollow,
-  findAllFollows,
-  createOneFollow,
-  updateOneFollow,
-  deleteOneFollow,
-} from "../../controllers/social/follow";
+import { followController } from "../../controllers/social/follow";
 import {
   findOneFollowValidation,
   followCreateValidation,
@@ -14,15 +8,30 @@ import {
 } from "../../middleware/validators/social/followValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
-router.get("/follow", findAllFollows);
-router.get("/follow/:id", findOneFollowValidation(), validate, findOneFollow);
-router.post("/follow", followCreateValidation(), validate, createOneFollow);
-router.put("/follow/:id", updateFollowValidation(), validate, updateOneFollow);
+router.get("/follow", followController.findAll);
+router.get(
+  "/follow/:id",
+  findOneFollowValidation(),
+  validate,
+  followController.findOne
+);
+router.post(
+  "/follow",
+  followCreateValidation(),
+  validate,
+  followController.createOne
+);
+router.put(
+  "/follow/:id",
+  updateFollowValidation(),
+  validate,
+  followController.updateOne
+);
 router.delete(
   "/follow/:id",
   deleteOneFollowValidation(),
   validate,
-  deleteOneFollow
+  followController.deleteOne
 );
 
 export default router;

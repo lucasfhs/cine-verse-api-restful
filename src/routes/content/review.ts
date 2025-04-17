@@ -1,28 +1,37 @@
 import { Router } from "express";
 import {
-  findOneReview,
-  findAllReviews,
-  createOneReview,
-  updateOneReview,
-  deleteOneReview,
-} from "../../controllers/content/review";
-import {
   findOneReviewValidation,
   reviewCreateValidation,
   updateReviewValidation,
   deleteOneReviewValidation,
 } from "../../middleware/validators/content/reviewValidator";
 import { validate } from "../../middleware/handleValidator";
+import { followController } from "../../controllers/social/follow";
 const router = Router();
-router.get("/review", findAllReviews);
-router.get("/review/:id", findOneReviewValidation(), validate, findOneReview);
-router.post("/review", reviewCreateValidation(), validate, createOneReview);
-router.put("/review/:id", updateReviewValidation(), validate, updateOneReview);
+router.get("/review", followController.findAll);
+router.get(
+  "/review/:id",
+  findOneReviewValidation(),
+  validate,
+  followController.findOne
+);
+router.post(
+  "/review",
+  reviewCreateValidation(),
+  validate,
+  followController.createOne
+);
+router.put(
+  "/review/:id",
+  updateReviewValidation(),
+  validate,
+  followController.updateOne
+);
 router.delete(
   "/review/:id",
   deleteOneReviewValidation(),
   validate,
-  deleteOneReview
+  followController.deleteOne
 );
 
 export default router;

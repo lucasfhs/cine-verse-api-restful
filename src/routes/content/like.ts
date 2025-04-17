@@ -1,11 +1,6 @@
 import { Router } from "express";
-import {
-  findOneLike,
-  findAllLikes,
-  createOneLike,
-  updateOneLike,
-  deleteOneLike,
-} from "../../controllers/content/like";
+
+import { likeController } from "../../controllers/content/like";
 import {
   findOneLikeValidation,
   likeCreateValidation,
@@ -14,10 +9,30 @@ import {
 } from "../../middleware/validators/content/likeValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
-router.get("/Like", findAllLikes);
-router.get("/like/:id", findOneLikeValidation(), validate, findOneLike);
-router.post("/like", likeCreateValidation(), validate, createOneLike);
-router.put("/like/:id", updateLikeValidation(), validate, updateOneLike);
-router.delete("/like/:id", deleteOneLikeValidation(), validate, deleteOneLike);
+router.get("/like", likeController.findAll);
+router.get(
+  "/like/:id",
+  findOneLikeValidation(),
+  validate,
+  likeController.findOne
+);
+router.post(
+  "/like",
+  likeCreateValidation(),
+  validate,
+  likeController.createOne
+);
+router.put(
+  "/like/:id",
+  updateLikeValidation(),
+  validate,
+  likeController.updateOne
+);
+router.delete(
+  "/like/:id",
+  deleteOneLikeValidation(),
+  validate,
+  likeController.deleteOne
+);
 
 export default router;

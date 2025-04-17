@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneList,
-  findAllLists,
-  createOneList,
-  updateOneList,
-  deleteOneList,
-} from "../../controllers/content/list";
+
 import {
   findOneListValidation,
   listCreateValidation,
@@ -13,11 +7,32 @@ import {
   deleteOneListValidation,
 } from "../../middleware/validators/content/listValidator";
 import { validate } from "../../middleware/handleValidator";
+import { listController } from "../../controllers/content/list";
 const router = Router();
-router.get("/list", findAllLists);
-router.get("/list/:id", findOneListValidation(), validate, findOneList);
-router.post("/list", listCreateValidation(), validate, createOneList);
-router.put("/list/:id", updateListValidation(), validate, updateOneList);
-router.delete("/list/:id", deleteOneListValidation(), validate, deleteOneList);
+router.get("/list", listController.findAll);
+router.get(
+  "/list/:id",
+  findOneListValidation(),
+  validate,
+  listController.findOne
+);
+router.post(
+  "/list",
+  listCreateValidation(),
+  validate,
+  listController.createOne
+);
+router.put(
+  "/list/:id",
+  updateListValidation(),
+  validate,
+  listController.updateOne
+);
+router.delete(
+  "/list/:id",
+  deleteOneListValidation(),
+  validate,
+  listController.deleteOne
+);
 
 export default router;
