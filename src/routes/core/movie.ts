@@ -3,7 +3,7 @@ import { movieController } from "../../controllers/core/movie";
 import {
   movieCreateValidation,
   findOneMovieValidation,
-} from "../../middleware/movieValidator";
+} from "../../middleware/validators/core/movieValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
 router.post(
