@@ -99,7 +99,7 @@ export const login = async (req: Request, res: Response) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60,
       });
 
       res.json({ accessToken });
@@ -120,15 +120,13 @@ export const refreshToken = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    return res.status(401).json({ message: "Refresh Token is required" });
+    res.status(401).json({ message: "Refresh Token is required" });
   }
 
   try {
     const isBlacklisted = await isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
-      return res
-        .status(403)
-        .json({ message: "Refresh token has been invalidated" });
+      res.status(403).json({ message: "Refresh token has been invalidated" });
     }
 
     const decoded = jwt.verify(
@@ -163,17 +161,17 @@ export const refreshToken = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    const accesstoken = req.header("Authorization")?.split(" ")[1];
+    const accessToken = req.header("Authorization")?.split(" ")[1];
     if (!refreshToken) {
-      return res.status(400).json({ message: "No refresh token provided" });
+      res.status(400).json({ message: "No refresh token provided" });
     }
-    if (!accesstoken) {
-      return res.status(400).json({ message: "No access token provided" });
+    if (!accessToken) {
+      res.status(400).json({ message: "No access token provided" });
     }
 
     const isBlacklisted = await isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
-      return res.status(400).json({
+      res.status(400).json({
         message: "User is already logged out or token is invalidated",
       });
     }
@@ -182,13 +180,13 @@ export const logout = async (req: Request, res: Response) => {
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET!
     ) as jwt.JwtPayload;
-
+    console.log(decoded.exp);
     const expiresIn = decoded.exp
       ? Math.floor(decoded.exp - Date.now() / 1000)
       : 7 * 24 * 60 * 60;
 
-    await blacklistToken(refreshToken, expiresIn);
-    await blacklistToken(accesstoken, expiresIn);
+    await blacklistToken(refreshToken!, expiresIn);
+    await blacklistToken(accessToken!, expiresIn);
     res.clearCookie("refreshToken");
     res.json({ message: "Logged out successfully" });
   } catch (error) {
