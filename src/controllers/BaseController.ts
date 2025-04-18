@@ -71,11 +71,12 @@ export class BaseController<T> {
             message: `${this.name} must be unique`,
           },
         });
+      } else {
+        res.status(500).json({
+          success: false,
+          error: { code: 500, message: "Internal server error" },
+        });
       }
-      res.status(500).json({
-        success: false,
-        error: { code: 500, message: "Internal server error" },
-      });
     }
   };
 

@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const port = process.env.PORT || 3000;
-import db from "./src/config/db";
 import Logger from "./src/config/logger";
+import Database from "./src/config/database";
 app.listen(port, async () => {
-  await db();
+  await Database.getInstance();
   Logger.info(`Server Started on http://localhost:${port}`);
 });
