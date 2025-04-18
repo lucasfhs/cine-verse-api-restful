@@ -30,7 +30,9 @@ export abstract class CrudTestHelper {
   async getAll() {
     return request(app).get(this.endpoint).set(this.getHeaders());
   }
-
+  async getOne(id: string) {
+    return request(app).get(`${this.endpoint}/${id}`).set(this.getHeaders());
+  }
   async update(id: string, payload: any) {
     return request(app)
       .put(`${this.endpoint}/${id}`)
