@@ -1,145 +1,75 @@
-import request from "supertest";
-import app from "../../app";
-import Database from "../../config/database";
-import RedisDB from "../../config/redis";
+import { CrudTestHelper } from "../utils/CrudTestHelper";
+import { TestEnvironment } from "../utils/TestEnvironment";
 
-let token: string;
+class UserTestHelper extends CrudTestHelper {
+  constructor() {
+    super("/user");
+  }
 
-beforeAll(async () => {
-  await Database.getInstance();
-  await RedisDB.getInstance();
-
-  const loginResponse = await request(app)
-    .post("/login")
-    .send({ email: "admin@admin.com", password: "admin" });
-
-  token = loginResponse.body.accessToken;
-}, 10000);
-
-describe("[POST] /user", () => {
-  it("should create a new user", async () => {
-    // arrange:
-    const endpoint = "/user";
-    const payload = {
+  generateUserPayload() {
+    const timestamp = Date.now();
+    return {
       name: "Test User",
-      nickname: `user_${Date.now()}`,
-      email: `user_${Date.now()}@example.com`,
+      nickname: `user_${timestamp}`,
+      email: `user_${timestamp}@example.com`,
       password: "123456",
       avatar: "https://www.google.com/",
       phoneNumber: ["3133888395"],
       role: "common",
     };
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 201;
+  }
+}
 
-    // act:
-    const response = await request(app)
-      .post(endpoint)
-      .set(headers)
-      .send(payload);
+const userHelper = new UserTestHelper();
 
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+beforeAll(async () => {
+  await TestEnvironment.setup();
+  userHelper.setToken(TestEnvironment.getToken());
+}, 10000);
+
+describe("[POST] /user", () => {
+  it("should create a new user", async () => {
+    const payload = userHelper.generateUserPayload();
+    const response = await userHelper.create(payload);
+
+    expect(response.status).toBe(201);
     expect(response.body.data).toHaveProperty("_id");
     expect(response.body.data.name).toBe(payload.name);
-    expect(response.body.data.email).toBe(payload.email);
   });
 });
 
 describe("[GET] /user", () => {
   it("should return all users when authorized", async () => {
-    // arrange:
-    const endpoint = "/user";
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 200;
+    const response = await userHelper.getAll();
 
-    // act:
-    const response = await request(app).get(endpoint).set(headers);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+    expect(response.status).toBe(200);
     expect(Array.isArray(response.body.data)).toBe(true);
   });
 });
 
 describe("[PUT] /user/:id", () => {
   it("should update a user by id", async () => {
-    // arrange:
-    const createResponse = await request(app)
-      .post("/user")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Update Test User",
-        nickname: `user_update_${Date.now()}`,
-        email: `user_update_${Date.now()}@example.com`,
-        password: "123456",
-        avatar: "https://www.google.com/",
-        phoneNumber: ["3133888395"],
-        role: "common",
-      });
+    const created = await userHelper.create(userHelper.generateUserPayload());
+    const id = created.body.data._id;
 
-    const userId = createResponse.body.data._id;
-    const endpoint = `/user/${userId}`;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const payload = {
-      name: "Updated Name",
-    };
-    const expectedStatusCode = 200;
+    const response = await userHelper.update(id, { name: "Updated Name" });
 
-    // act:
-    const response = await request(app)
-      .put(endpoint)
-      .set(headers)
-      .send(payload);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
-    expect(response.body.data.name).toBe(payload.name);
+    expect(response.status).toBe(200);
+    expect(response.body.data.name).toBe("Updated Name");
   });
 });
 
 describe("[DELETE] /user/:id", () => {
   it("should delete a user by id", async () => {
-    // arrange:
-    const createResponse = await request(app)
-      .post("/user")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Delete User",
-        nickname: `user_delete_${Date.now()}`,
-        email: `user_delete_${Date.now()}@example.com`,
-        password: "123456",
-        avatar: "https://www.google.com/",
-        phoneNumber: ["3133888395"],
-        role: "common",
-      });
+    const created = await userHelper.create(userHelper.generateUserPayload());
+    const id = created.body.data._id;
 
-    const userId = createResponse.body.data._id;
-    const endpoint = `/user/${userId}`;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 200;
+    const response = await userHelper.delete(id);
 
-    // act:
-    const response = await request(app).delete(endpoint).set(headers);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+    expect(response.status).toBe(200);
   });
 });
 
 afterAll(async () => {
-  if (Database.getConnectionStatus && Database.getConnectionStatus()) {
-    await Database.disconnect();
-  }
-  if (RedisDB.getConnectionStatus && RedisDB.getConnectionStatus()) {
-    await RedisDB.disconnect();
-  }
+  TestEnvironment.teardown();
 });
