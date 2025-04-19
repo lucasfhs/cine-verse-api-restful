@@ -3,7 +3,6 @@ import { ReportModel } from "../../models/social/Report";
 import { encryptMessage, decryptMessage } from "../../utils/crypto";
 import Logger from "../../config/logger";
 
-
 export async function findAllReports(req: Request, res: Response) {
   try {
     const reports = await ReportModel.find().lean();
@@ -118,7 +117,7 @@ export async function deleteOneReport(req: Request, res: Response) {
 
     const report = await ReportModel.findOneAndDelete({ _id: id });
     if (report) {
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         data: report,
       });
