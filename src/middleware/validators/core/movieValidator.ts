@@ -1,56 +1,77 @@
 import { body, param } from "express-validator";
-
-export const movieCreateValidation = () => {
-  return [
-    body("title")
-      .isString()
-      .withMessage("Title must be a string")
-      .notEmpty()
-      .withMessage("Title is required"),
-
-    body("rating")
-      .isNumeric()
-      .withMessage("Rating must be a number")
-      .notEmpty()
-      .withMessage("Rating is required"),
-
-    body("description")
-      .isString()
-      .withMessage("Description must be a string")
-      .notEmpty()
-      .withMessage("Description is required"),
-
-    body("director")
-      .isString()
-      .withMessage("Director must be a string")
-      .notEmpty()
-      .withMessage("Director is required"),
-
-    body("stars")
-      .isInt({ min: 1, max: 5 })
-      .withMessage("Stars must be an integer between 1 and 5")
-      .notEmpty()
-      .withMessage("Stars is required"),
-
-    body("poster").optional().isURL().withMessage("Poster must be a url."),
-
-    body("actors")
-      .isArray()
-      .withMessage("Actors must be an array")
-      .notEmpty()
-      .withMessage("Actors is required"),
-  ];
-};
+import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
+import { capitalizeName } from "../../../utils/stringUtils";
+import { NumberRangeValidator } from "../../../utils/numberRange";
 
 export const findOneMovieValidation = () => {
   return [
     param("id")
       .isString()
-      .withMessage("id must be string.")
+      .withMessage("id must be a string.")
       .notEmpty()
       .withMessage("id is required.")
-      .equals("id")
-      .withMessage("id is required."),
+      .custom(isValidMongodbId),
+  ];
+};
+
+/*
+  title: String,
+    description: String,
+    year: Number,
+    genre: [String],
+    average_rating: { type: Number, default: 0 },
+    tmdb_id: String,
+    actors: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
+    directors: [{ type: Schema.Types.ObjectId, ref: "Director" }],
+*/
+
+export const movieCreateValidation = () => {
+  return [
+    body("title")
+      .isString()
+      .withMessage("The title must be a string.")
+      .notEmpty()
+      .withMessage("The name is required.")
+      .trim()
+      .customSanitizer(capitalizeName),
+    body("year")
+      .isNumeric()
+      .withMessage("The year must be a number.")
+      .notEmpty()
+      .withMessage("The year is required."),
+    body("genre")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The genre must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The genre must be required."),
+    body("average_rating")
+      .isNumeric()
+      .withMessage("The average_rating must be a number.")
+      .notEmpty()
+      .withMessage("The average_rating is required."),
+    // .custom(new NumberRangeValidator(0, 5).inNumberRange)
+    // .withMessage("The average_rating must be a number between 0 and 5")
+    body("tmdb_id")
+      .isString()
+      .withMessage("The tmdb_id must be a string.")
+      .notEmpty()
+      .withMessage("The tmdb_id is required."),
+    body("actors")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The actors must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The actors must be required."),
+    body("directors")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The directos must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The directos must be required."),
   ];
 };
 
@@ -58,10 +79,65 @@ export const updateMovieValidation = () => {
   return [
     param("id")
       .isString()
-      .withMessage("id must be string.")
+      .withMessage("id must be a string.")
       .notEmpty()
       .withMessage("id is required.")
-      .equals("id")
-      .withMessage("id is required."),
+      .custom(isValidMongodbId),
+    body("title")
+      .isString()
+      .withMessage("The title must be a string.")
+      .notEmpty()
+      .withMessage("The name is required.")
+      .trim()
+      .customSanitizer(capitalizeName),
+    body("year")
+      .isNumeric()
+      .withMessage("The year must be a number.")
+      .notEmpty()
+      .withMessage("The year is required."),
+    body("genre")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The genre must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The genre must be required."),
+    body("average_rating")
+      .isNumeric()
+      .withMessage("The average_rating must be a number.")
+      .notEmpty()
+      .withMessage("The average_rating is required.")
+      .toFloat(),
+    // .custom(new NumberRangeValidator(0, 5).inNumberRange)
+    // .withMessage("The average_rating must be a number between 0 and 5")
+    body("tmdb_id")
+      .isString()
+      .withMessage("The tmdb_id must be a string.")
+      .notEmpty()
+      .withMessage("The tmdb_id is required."),
+    body("actors")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The actors must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The actors must be required."),
+    body("directors")
+      .isArray({ min: 1 })
+      .withMessage(
+        "The directos must be an array that contains at least 1 element."
+      )
+      .notEmpty()
+      .withMessage("The directos must be required."),
+  ];
+};
+export const deleteOneMovieValidation = () => {
+  return [
+    param("id")
+      .isString()
+      .withMessage("id must be a string.")
+      .notEmpty()
+      .withMessage("id is required.")
+      .custom(isValidMongodbId),
   ];
 };
