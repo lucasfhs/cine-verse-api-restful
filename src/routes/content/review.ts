@@ -6,32 +6,32 @@ import {
   deleteOneReviewValidation,
 } from "../../middleware/validators/content/reviewValidator";
 import { validate } from "../../middleware/handleValidator";
-import { followController } from "../../controllers/social/follow";
+import { reviewController } from "../../controllers/content/review";
 const router = Router();
-router.get("/review", followController.findAll);
+router.get("/review", reviewController.findAll);
 router.get(
   "/review/:id",
   findOneReviewValidation(),
   validate,
-  followController.findOne
+  reviewController.findOne
 );
 router.post(
   "/review",
   reviewCreateValidation(),
   validate,
-  followController.createOne
+  reviewController.createOne
 );
 router.put(
   "/review/:id",
   updateReviewValidation(),
   validate,
-  followController.updateOne
+  reviewController.updateOne
 );
 router.delete(
   "/review/:id",
   deleteOneReviewValidation(),
   validate,
-  followController.deleteOne
+  reviewController.deleteOne
 );
 
 export default router;

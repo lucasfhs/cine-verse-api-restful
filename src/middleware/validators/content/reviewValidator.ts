@@ -25,8 +25,8 @@ export const reviewCreateValidation = () => {
       .withMessage("movie_id is required.")
       .custom(isValidMongodbId),
     body("rating")
-      .isFloat({ min: 1, max: 5 })
-      .withMessage("rating must be a number between 1 and 5.")
+      .isFloat({ min: 0, max: 5 })
+      .withMessage("rating must be a number between 0 and 5.")
       .notEmpty()
       .withMessage("rating is required."),
     body("content")
@@ -60,8 +60,8 @@ export const updateReviewValidation = () => {
       .withMessage("movie_id is required.")
       .custom(isValidMongodbId),
     body("rating")
-      .isFloat({ min: 1, max: 5 })
-      .withMessage("rating must be a number between 1 and 5.")
+      .isFloat({ min: 0, max: 5 })
+      .withMessage("rating must be a number between 0 and 5.")
       .notEmpty()
       .withMessage("rating is required."),
     body("content")
