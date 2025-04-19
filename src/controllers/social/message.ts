@@ -117,7 +117,7 @@ export async function deleteOneMessage(req: Request, res: Response) {
 
     const Message = await MessageModel.findOneAndDelete({ _id: id });
     if (Message) {
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         data: Message,
       });
