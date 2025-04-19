@@ -106,3 +106,4 @@ As mensagens enviadas de usuario a usuario devem estar criptografadas no banco.
 - Jest (testes)
   mongodb://mongo:27017/expressApi
   redis
+a
