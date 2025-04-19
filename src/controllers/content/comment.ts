@@ -117,7 +117,7 @@ export async function deleteOneComment(req: Request, res: Response) {
 
     const comment = await CommentModel.findOneAndDelete({ _id: id });
     if (comment) {
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         data: comment,
       });
