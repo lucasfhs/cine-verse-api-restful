@@ -1,6 +1,7 @@
 import { timeStamp } from "console";
 import { CrudTestHelper } from "../utils/CrudTestHelper";
 import { TestEnvironment } from "../utils/TestEnvironment";
+import { generateMongodbId } from "../../utils/mongodbIdValidator";
 
 class MovieTestHelper extends CrudTestHelper {
   constructor() {
@@ -25,9 +26,9 @@ class MovieTestHelper extends CrudTestHelper {
       year: Math.floor(Math.random() * 10 + 2000),
       genre: ["Test Genre"],
       average_rating: Math.floor((Math.random() * 10) % 6),
-      tmdb_id: `test_id-${timeStamp}`,
-      actors: [`test_id-${timestamp}`],
-      directors: [`test_id-${timestamp}`],
+      tmdb_id: generateMongodbId(),
+      actors: [generateMongodbId()],
+      directors: [generateMongodbId()],
     };
   }
 }

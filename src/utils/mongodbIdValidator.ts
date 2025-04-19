@@ -5,3 +5,6 @@ export const isValidMongodbId = (value: string) => {
   }
   return true;
 };
+export const generateMongodbId = (): string => {
+  return new Types.ObjectId().toHexString();
+};

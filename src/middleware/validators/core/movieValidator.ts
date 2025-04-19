@@ -14,17 +14,6 @@ export const findOneMovieValidation = () => {
   ];
 };
 
-/*
-  title: String,
-    description: String,
-    year: Number,
-    genre: [String],
-    average_rating: { type: Number, default: 0 },
-    tmdb_id: String,
-    actors: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
-    directors: [{ type: Schema.Types.ObjectId, ref: "Director" }],
-*/
-
 export const movieCreateValidation = () => {
   return [
     body("title")
@@ -50,9 +39,9 @@ export const movieCreateValidation = () => {
       .isNumeric()
       .withMessage("The average_rating must be a number.")
       .notEmpty()
-      .withMessage("The average_rating is required."),
-    // .custom(new NumberRangeValidator(0, 5).inNumberRange)
-    // .withMessage("The average_rating must be a number between 0 and 5")
+      .withMessage("The average_rating is required.")
+      .custom((value) => new NumberRangeValidator(0, 5).inNumberRange(value))
+      .withMessage("The average_rating must be a number between 0 and 5"),
     body("tmdb_id")
       .isString()
       .withMessage("The tmdb_id must be a string.")
@@ -86,49 +75,44 @@ export const updateMovieValidation = () => {
     body("title")
       .isString()
       .withMessage("The title must be a string.")
-      .notEmpty()
-      .withMessage("The name is required.")
       .trim()
-      .customSanitizer(capitalizeName),
+      .customSanitizer(capitalizeName)
+      .optional(),
     body("year")
       .isNumeric()
       .withMessage("The year must be a number.")
-      .notEmpty()
-      .withMessage("The year is required."),
+      .optional(),
     body("genre")
       .isArray({ min: 1 })
       .withMessage(
         "The genre must be an array that contains at least 1 element."
       )
-      .notEmpty()
-      .withMessage("The genre must be required."),
+      .optional(),
     body("average_rating")
       .isNumeric()
       .withMessage("The average_rating must be a number.")
-      .notEmpty()
-      .withMessage("The average_rating is required.")
-      .toFloat(),
-    // .custom(new NumberRangeValidator(0, 5).inNumberRange)
-    // .withMessage("The average_rating must be a number between 0 and 5")
+      .toFloat()
+      .optional()
+      .custom((value) => new NumberRangeValidator(0, 5).inNumberRange(value))
+      .withMessage("The average_rating must be a number between 0 and 5"),
     body("tmdb_id")
       .isString()
       .withMessage("The tmdb_id must be a string.")
       .notEmpty()
-      .withMessage("The tmdb_id is required."),
+      .withMessage("The tmdb_id is required.")
+      .optional(),
     body("actors")
       .isArray({ min: 1 })
       .withMessage(
         "The actors must be an array that contains at least 1 element."
       )
-      .notEmpty()
-      .withMessage("The actors must be required."),
+      .optional(),
     body("directors")
       .isArray({ min: 1 })
       .withMessage(
         "The directos must be an array that contains at least 1 element."
       )
-      .notEmpty()
-      .withMessage("The directos must be required."),
+      .optional(),
   ];
 };
 export const deleteOneMovieValidation = () => {
