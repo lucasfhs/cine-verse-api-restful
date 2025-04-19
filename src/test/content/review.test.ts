@@ -12,7 +12,7 @@ class ReviewTestHelper extends CrudTestHelper {
     return {
       user_id: generateMongodbId(),
       movie_id: generateMongodbId(),
-      rating: Math.floor((Math.random() * 10) % 6),
+      rating: 2,
       content: `Content - ${Date.now().toLocaleString()}`,
       spoiler: true,
     };
@@ -67,11 +67,12 @@ describe("[PUT] /review/:id", () => {
     const created = await reviewHelper.create(
       reviewHelper.generateReviewPayload()
     );
+    console.log(created.body);
     const id = created.body.data._id;
     const payload = {
       user_id: generateMongodbId(),
       movie_id: generateMongodbId(),
-      rating: Math.floor((Math.random() * 10) % 6),
+      rating: 2,
       content: `Content - ${Date.now().toLocaleString()}`,
       spoiler: true,
     };
@@ -82,6 +83,7 @@ describe("[PUT] /review/:id", () => {
       content: payload.content,
       spoiler: payload.spoiler,
     });
+    console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.data.movie_id).toBe(payload.movie_id);
     expect(response.body.data.rating).toBe(payload.rating);
