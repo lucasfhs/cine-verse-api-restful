@@ -47,6 +47,19 @@ describe("[GET] /user", () => {
   });
 });
 
+describe("[GET] /user/:id", () => {
+  it("should return a user by id", async () => {
+    const created = await userHelper.create(
+      userHelper.generateUserPayload()
+    );
+    const id = created.body.data._id;
+    const response = await userHelper.getOne(id);
+
+    expect(response.status).toBe(200);
+    expect(response.body.data._id).toBe(id);
+  });
+});
+
 describe("[PUT] /user/:id", () => {
   it("should update a user by id", async () => {
     const created = await userHelper.create(userHelper.generateUserPayload());
