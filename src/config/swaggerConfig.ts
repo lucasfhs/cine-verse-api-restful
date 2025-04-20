@@ -6,7 +6,9 @@ const options: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Minha API RESTful",
+      title: "Movie API RestFull: MVC architecture ",
+      description:
+        "This API is a **Movie Review Platform** that allows users to register, review films, interact socially (likes, comments, follows), and manage movie data. It includes **JWT authentication, admin controls, features like ratings, lists, and private messaging (crypto)**. Built with **Express.js, TypeScript, MongoDB, Redis, and Jest** for testing.",
       version: "1.0.0",
     },
     components: {
