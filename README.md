@@ -52,6 +52,8 @@ Run this PowerShell script in the root directory:
 .\generateEnvFileWindows.ps1
 ```
 
+![EnvGenerator Preview](./project/previewEnvGenerator.gif)
+
 ### **2. Launching the Application**
 
 ```bash
