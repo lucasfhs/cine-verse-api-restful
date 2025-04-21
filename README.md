@@ -151,55 +151,67 @@ The system will automatically:
 ## **📌 Use Cases**
 
 Below are the primary use cases supported by the Movie API, categorized by functionality:
+![UseCases Preview](./project/diagrams/Movie_API_Use_Cases.png)
 
 ### **🎥 Movie Management**
-- **CRUD Operations**: Create, Read, Update, and Delete movies.  
-- **Upload Movie Poster**: Add or update images for movie posters.  
-- **Manage Categories**: Organize movies into categories or collections.  
-- **Search Movies**: Filter movies by title, director, actor, or category.  
+
+- **CRUD Operations**: Create, Read, Update, and Delete movies.
+- **Upload Movie Poster**: Add or update images for movie posters.
+- **Manage Categories**: Organize movies into categories or collections.
+- **Search Movies**: Filter movies by title, director, actor, or category.
 
 ### **👥 User Interactions**
-- **Account Management**: Register, update, or delete user accounts.  
-- **Follow Users**: Follow critics, regular users, or admins to view their activity.  
-- **Moderate Users**: Admins can block, remove, or review user activity.  
-- **Settings**: Update passwords or recover accounts.  
+
+- **Account Management**: Register, update, or delete user accounts.
+- **Follow Users**: Follow critics, regular users, or admins to view their activity.
+- **Moderate Users**: Admins can block, remove, or review user activity.
+- **Settings**: Update passwords or recover accounts.
 
 ### **✍️ Reviews & Feedback**
-- **Rate and Review**: Submit ratings (1-5) and reviews with spoiler warnings.  
-- **Comment on Reviews**: Engage with other users by commenting on their reviews.  
-- **Report Content**: Flag inappropriate reviews or comments for admin moderation.  
-- **Authenticate Critics**: Verify the authenticity of critic accounts.  
+
+- **Rate and Review**: Submit ratings (1-5) and reviews with spoiler warnings.
+- **Comment on Reviews**: Engage with other users by commenting on their reviews.
+- **Report Content**: Flag inappropriate reviews or comments for admin moderation.
+- **Authenticate Critics**: Verify the authenticity of critic accounts.
 
 ### **🖼️ Media Handling**
-- **Provide Image Units**: Support for uploading user avatars and movie posters.  
+
+- **Provide Image Units**: Support for uploading user avatars and movie posters.
 
 ### **🔍 Discovery**
-- **Find Critics/Reviews**: Search for critics or specific reviews.  
-- **Create Custom Lists**: Curate personal lists of favorite movies.  
+
+- **Find Critics/Reviews**: Search for critics or specific reviews.
+- **Create Custom Lists**: Curate personal lists of favorite movies.
 
 ---
 
 ### **Key Scenarios**
-1. **User Submits a Review**:  
-   - A user logs in, searches for a movie, and submits a review with a rating.  
-   - The review appears on the movie’s page and the user’s profile.  
 
-2. **Admin Moderates Content**:  
-   - An admin reviews reported content, decides to remove it, and optionally blocks the offending user.  
+1. **User Submits a Review**:
 
-3. **User Follows a Critic**:  
-   - A regular user follows a critic to receive updates on their reviews and activity.  
+   - A user logs in, searches for a movie, and submits a review with a rating.
+   - The review appears on the movie’s page and the user’s profile.
 
-4. **Password Recovery**:  
-   - A user requests a password reset, receives a secure link via email, and updates their credentials.  
+2. **Admin Moderates Content**:
+
+   - An admin reviews reported content, decides to remove it, and optionally blocks the offending user.
+
+3. **User Follows a Critic**:
+
+   - A regular user follows a critic to receive updates on their reviews and activity.
+
+4. **Password Recovery**:
+   - A user requests a password reset, receives a secure link via email, and updates their credentials.
 
 ---
 
 ### **Integration with Functional Requirements**
-These use cases align with the [Functional Requirements](#-functional-requirements) to ensure:  
-- **Auth & Users**: Secure account handling (RF01-RF05).  
-- **Movie Management**: Structured film data (RF06-RF09).  
-- **Reviews & Social**: Engagement features (RF10-RF16).  
+
+These use cases align with the [Functional Requirements](#-functional-requirements) to ensure:
+
+- **Auth & Users**: Secure account handling (RF01-RF05).
+- **Movie Management**: Structured film data (RF06-RF09).
+- **Reviews & Social**: Engagement features (RF10-RF16).
 
 For implementation details, refer to the [Postman Collection](#-postman-collection) or [Swagger docs](#need-help).
 
