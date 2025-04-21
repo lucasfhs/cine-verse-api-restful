@@ -1,0 +1,4401 @@
+{
+	"info": {
+		"_postman_id": "159aef88-31bd-482a-a0cf-05c86cf36f78",
+		"name": "MovieApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36230518"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"randomFullName\", pm.variables.replaceIn(\"{{$randomFullName}}\"));\r",
+									"pm.environment.set(\"randomNoun\", pm.variables.replaceIn(\"{{$randomNoun}}\"));\r",
+									"pm.environment.set(\"randomEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));\r",
+									"pm.environment.set(\"randomUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+									"pm.environment.set(\"randomPhoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{randomFullName}}\",\r\n  \"nickname\": \"{{randomNoun}}\",\r\n  \"email\": \"{{randomEmail}}\",\r\n  \"password\": \"123456\",\r\n  \"rePassword\": \"123456\",\r\n  \"role\": \"admin\",\r\n  \"avatar\": \"{{randomUrl}}\",\r\n  \"phoneNumber\": \"{{randomPhoneNumber}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"Sonya.Lang53@hotmail.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"randomFullName\", pm.variables.replaceIn(\"{{$randomFullName}}\"));\r",
+									"pm.environment.set(\"randomNoun\", pm.variables.replaceIn(\"{{$randomNoun}}\"));\r",
+									"pm.environment.set(\"randomEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));\r",
+									"pm.environment.set(\"randomUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+									"pm.environment.set(\"randomPhoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4NDIwNTAsImV4cCI6MTc0NDg0Mjk1MH0.RL0VaU1FvrfStijOfjX1rj2STqi6FQ9jYXS8Uo9_Bn0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/refresh-token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4NDIwNTAsImV4cCI6MTc0NDg0Mjk1MH0.RL0VaU1FvrfStijOfjX1rj2STqi6FQ9jYXS8Uo9_Bn0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movie",
+			"item": [
+				{
+					"name": "Movie",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Função para gerar um nome aleatório\r",
+									"function getRandomName() {\r",
+									"  const names = [\"Inception\", \"Titanic\", \"Avengers\", \"Interstellar\", \"Matrix\", \"The Dark Knight\"];\r",
+									"  return names[Math.floor(Math.random() * names.length)];\r",
+									"}\r",
+									"\r",
+									"// Função para gerar uma avaliação aleatória entre 1 a 5\r",
+									"function getRandomRating() {\r",
+									"  return Math.floor(Math.random() * 5) + 1;\r",
+									"}\r",
+									"\r",
+									"// Função para gerar um nome aleatório de ator\r",
+									"function getRandomActor() {\r",
+									"  const actors = [\"Leonardo DiCaprio\", \"Matt Damon\", \"Morgan Freeman\", \"Scarlett Johansson\", \"Chris Hemsworth\"];\r",
+									"  return actors[Math.floor(Math.random() * actors.length)];\r",
+									"}\r",
+									"\r",
+									"// Gerando os valores aleatórios para o corpo da requisição\r",
+									"const movieTitle = getRandomName();\r",
+									"const rating = getRandomRating();\r",
+									"const description = \"A thrilling movie with amazing plot and characters.\";\r",
+									"const director = \"Christopher Nolan\";\r",
+									"const stars = rating; // A estrela vai ser igual à avaliação gerada\r",
+									"const poster = \"https://example.com/poster.jpg\";\r",
+									"const actors = Array.from({ length: 3 }, getRandomActor); // Gera 3 atores aleatórios\r",
+									"\r",
+									"// Salva os dados gerados como variáveis de ambiente para usar no corpo da requisição\r",
+									"pm.environment.set(\"movieTitle\", movieTitle);\r",
+									"pm.environment.set(\"rating\", rating);\r",
+									"pm.environment.set(\"description\", description);\r",
+									"pm.environment.set(\"director\", director);\r",
+									"pm.environment.set(\"stars\", stars);\r",
+									"pm.environment.set(\"poster\", poster);\r",
+									"pm.environment.set(\"actors\", JSON.stringify(actors)); // Salva como string para enviar no body\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDMzMzY5NzAsImV4cCI6MTc0MzMzNzg3MH0.lAJbDKfji1I3R09naMw7gO3bBWHbuB5R9SFNbvx_T3c",
+								"description": "\tBearer <seu_token_aqui>",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"{{movieTitle}}\",\r\n  \"rating\": {{rating}},\r\n  \"description\": \"{{description}}\",\r\n  \"director\": \"{{director}}\",\r\n  \"stars\": {{stars}},\r\n  \"poster\": \"{{poster}}\",\r\n  \"actors\": {{actors}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/movie",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Função para gerar um nome aleatório\r",
+									"function getRandomName() {\r",
+									"  const names = [\"Inception\", \"Titanic\", \"Avengers\", \"Interstellar\", \"Matrix\", \"The Dark Knight\"];\r",
+									"  return names[Math.floor(Math.random() * names.length)];\r",
+									"}\r",
+									"\r",
+									"// Função para gerar uma avaliação aleatória entre 1 a 5\r",
+									"function getRandomRating() {\r",
+									"  return Math.floor(Math.random() * 5) + 1;\r",
+									"}\r",
+									"\r",
+									"// Função para gerar um nome aleatório de ator\r",
+									"function getRandomActor() {\r",
+									"  const actors = [\"Leonardo DiCaprio\", \"Matt Damon\", \"Morgan Freeman\", \"Scarlett Johansson\", \"Chris Hemsworth\"];\r",
+									"  return actors[Math.floor(Math.random() * actors.length)];\r",
+									"}\r",
+									"\r",
+									"// Gerando os valores aleatórios para o corpo da requisição\r",
+									"const movieTitle = getRandomName();\r",
+									"const rating = getRandomRating();\r",
+									"const description = \"A thrilling movie with amazing plot and characters.\";\r",
+									"const director = \"Christopher Nolan\";\r",
+									"const stars = rating; // A estrela vai ser igual à avaliação gerada\r",
+									"const poster = \"https://example.com/poster.jpg\";\r",
+									"const actors = Array.from({ length: 3 }, getRandomActor); // Gera 3 atores aleatórios\r",
+									"\r",
+									"// Salva os dados gerados como variáveis de ambiente para usar no corpo da requisição\r",
+									"pm.environment.set(\"movieTitle\", movieTitle);\r",
+									"pm.environment.set(\"rating\", rating);\r",
+									"pm.environment.set(\"description\", description);\r",
+									"pm.environment.set(\"director\", director);\r",
+									"pm.environment.set(\"stars\", stars);\r",
+									"pm.environment.set(\"poster\", poster);\r",
+									"pm.environment.set(\"actors\", JSON.stringify(actors)); // Salva como string para enviar no body\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM0NTM1NDIsImV4cCI6MTc0MzQ1NDQ0Mn0._JXWUSh3CFziHyJXLIOn9FOXifMvQE40DHjiKMJWXmk",
+								"description": "\tBearer <seu_token_aqui>",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/movie/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"movie",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actor",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/actor",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"actor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/actor/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"actor",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67ed16ee3cbe3633e8c031d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/actor/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"actor",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67ed16ee3cbe3633e8c031d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Josias do Bem\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/actor/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"actor",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67ed16f03cbe3633e8c031d5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// Gera um nome aleatório\r",
+									"pm.variables.set(\"randomFullName\", pm.variables.replaceIn(\"{{$randomFullName}}\"));\r",
+									"\r",
+									"// Gera uma data aleatória no passado\r",
+									"pm.variables.set(\"randomDatePast\", pm.variables.replaceIn(\"{{$randomDatePast}}\"));\r",
+									"\r",
+									"// Lista de países para escolher aleatoriamente\r",
+									"const countries = [\r",
+									"    \"Brazil\", \"United States\", \"Canada\", \"Germany\", \"France\", \r",
+									"    \"Japan\", \"Australia\", \"United Kingdom\", \"Italy\", \"Spain\"\r",
+									"];\r",
+									"\r",
+									"// Escolhe um país aleatoriamente\r",
+									"const randomCountry = countries[Math.floor(Math.random() * countries.length)];\r",
+									"pm.variables.set(\"randomCountry\", randomCountry);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"{{$randomFullName}}\",\r\n    \"birthdate\":\"{{$randomDatePast}}\",\r\n    \"nationality\":\"{{randomCountry}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/actor",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"actor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/user/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67e92d4d9473b1fc0ae30246"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/user/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67e92d4d9473b1fc0ae30246"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Caio Lopes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Atualize se necessário\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\",\r",
+									"        \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAwMDVmYzBjOTU5ODM0M2UyYTEwOTgiLCJpYXQiOjE3NDQ4MzIzMjAsImV4cCI6MTc0NTQzNzEyMH0.zLJBSZtVdeMTBDProYoowVDEqqlz1fWLIVKTXGOJhZI\"\r",
+									"    },\r",
+									"    // Se necessário, pode enviar body ou outras configs\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: \"\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Erro ao requisitar novo accessToken:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            let jsonResponse = res.json();\r",
+									"            let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"            if (accessToken) {\r",
+									"                pm.globals.set(\"accessToken\", accessToken); // Salva globalmente\r",
+									"                console.log(\"Novo accessToken definido com sucesso.\");\r",
+									"            } else {\r",
+									"                console.warn(\"AccessToken não encontrado na resposta.\");\r",
+									"            }\r",
+									"        } catch (parseError) {\r",
+									"            console.error(\"Erro ao interpretar resposta JSON:\", parseError);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Amandinha JonasAAAadadA\",\r\n    \"nickname\": \"Girlfriend\",\r\n    \"email\": \"email222@email.com\",\r\n    \"avatar\": \"https://www.google.com/\",\r\n    \"phoneNumber\": [ \"3133888395\"],\r\n    \"password\": \"123456\",\r\n    \"role\": \"common\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Director",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/director",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"director"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/director/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"director",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6d5b6de608d4b1c6006"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/director/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"director",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Caio Lopes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/director/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"director",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6f1b6de608d4b1c600e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"birthdate\": \"{{$randomDatePast}}\",\r\n    \"nationality\": \"{{$randomCountry}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/director",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"director"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Follow",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/follow",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/follow/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"follow",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f102033ef0bb0487c08245"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/follow/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"follow",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"followed_id\": \"67e931d94cf884ea1578ba55\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/follow/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"follow",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f102033ef0bb0487c08245"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"follower_id\": \"67e92f77ffd066eb353cf0d4\",\r\n    \"followed_id\": \"67e931d94cf884ea1578ba55\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/follow",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"follow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/message",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/message/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"message",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f164be6686f1f6afd332f9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/message/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"message",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"followed_id\": \"67e931d94cf884ea1578ba55\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/message/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"message",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f102033ef0bb0487c08245"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"sender_id\": \"67e92f77ffd066eb353cf0d4\",\r\n    \"receiver_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"content\": \"Caio Lopes\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/message",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/report",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/report/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"report",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f164be6686f1f6afd332f9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/report/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"report",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"followed_id\": \"67e931d94cf884ea1578ba55\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/report/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"report",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f102033ef0bb0487c08245"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"reason\": \"Ele foi ofensivo\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/report",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"report"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comment/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f45ce6e3579a0b3b653ece"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comment/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"content\": \"Ele foi fofo\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/comment/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f45ce6e3579a0b3b653ece"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"content\": \"Ele foi ofensivo\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/like/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f4757203e9b639790d9139"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/like/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"content\": \"Ele foi fofo\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/like/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f45ce6e3579a0b3b653ece"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List",
+			"item": [
+				{
+					"name": "FindAll",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTE0OTEsImV4cCI6MTc0MzYxMjM5MX0.LqzhUqN4Bds5HFpeOQTHaLAPRfqEPW6_AOm-ko75lso",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/list",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/list/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f4757203e9b639790d9139"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/list/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f0f6eeb6de608d4b1c600a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"review_id\": \"67e931d94cf884ea1578ba55\",\r\n    \"content\": \"Ele foi fofo\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/list/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67f45ce6e3579a0b3b653ece"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: \"http://localhost:8080/refresh-token\", // Troque pela URL real da sua API\r",
+									"    method: \"POST\", // ou \"GET\", dependendo da sua API\r",
+									"    header: {\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log(\"Erro ao obter accessToken:\", err);\r",
+									"    } else {\r",
+									"        // Pega o token da resposta e armazena na variável global\r",
+									"        let jsonResponse = res.json();\r",
+									"        let accessToken = jsonResponse.accessToken;\r",
+									"\r",
+									"        if (accessToken) {\r",
+									"            pm.globals.set(\"accessToken\", accessToken); // Define a variável global\r",
+									"        } else {\r",
+									"            console.log(\"AccessToken não encontrado na resposta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\tBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5MmY3N2ZmZDA2NmViMzUzY2YwZDQiLCJpYXQiOjE3NDM2MTI1MTcsImV4cCI6MTc0MzYxMzQxN30.9BV-GmVoQ9Y_k4Rv_Z15Qf7193AZxnOM74nh7I8KQ1U",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"user_id\": \"67e92d989473b1fc0ae30248\",\r\n    \"name\": \"Cabeca                              seca                          \",\r\n    \"description\": \"Muito massa\",\r\n    \"movies\": [ \"67e92d989473b1fc0ae30248\"]  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/list",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "PLACE_YOUR_URL_HERE",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

@@ -13,6 +13,7 @@ Users can also create lists of their favorite films, which are displayed on thei
 ## **📝 Table of Contents**
 
 1. [Installation](#-installation)
+   - [Postman Collection](#-postman-collection)
 2. [Functional Requirements](#-functional-requirements)
    - [Auth & Users](#-auth--users)
    - [Movie Management](#-movie-management)
@@ -144,6 +145,64 @@ The system will automatically:
 | RNF16 | Clear and standardized error messages  |
 
 ---
+
+Here’s the improved Postman section in English, with clearer formatting and more professional language:
+
+---
+
+## **📡 Postman Collection**
+
+### **Description**
+
+If you prefer not to use Swagger for API exploration, you can import the provided **Postman Collection** located at:  
+`./project/postman/MovieApi.postman_collection.json`
+
+### **Import Instructions**
+
+1. Open Postman and click **"Import"**
+2. Select the JSON file or drag-and-drop it into Postman
+3. Once imported, you’ll see all available API endpoints organized by category
+
+![Postman Import Demo](./project/postman/postmanImportCollectionPreview.gif)
+
+### **Key Features**
+
+- **Auto-Token Refresh**: Each request includes a **pre-request script** that automatically obtains a valid `accessToken` via JWT refresh:
+  ```javascript
+  pm.sendRequest(
+    {
+      url: "http://localhost:8080/refresh-token", // Update if needed
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer {{accessToken}}",
+      },
+    },
+    (err, res) => {
+      if (err) {
+        console.error("Refresh token error:", err);
+      } else {
+        const newToken = res.json().accessToken;
+        if (newToken) {
+          pm.globals.set("accessToken", newToken);
+          console.log("Token refreshed successfully");
+        }
+      }
+    }
+  );
+  ```
+- **Environment Ready**: The collection uses Postman variables for seamless testing.
+- **Structured Endpoints**: Routes are grouped by functionality (Auth, Movies, Reviews, etc.).
+
+---
+
+### **Why Use This Collection?**
+
+✅ **Saves time** with pre-configured auth flows  
+✅ **Documents all endpoints** with example requests/responses  
+✅ **Easily extensible** for testing edge cases
+
+**Tip**: After import, check Postman’s **"Tests"** tab for built-in response validations.
 
 ## **📜 More Business Rules**
 
