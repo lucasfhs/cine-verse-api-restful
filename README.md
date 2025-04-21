@@ -60,6 +60,8 @@ Run this PowerShell script in the root directory:
 docker-compose up -d
 ```
 
+![DockerCompose Preview](./project/previewDockerCompose.gif)
+
 ### **3. Verify Installation**
 
 - API: `http://localhost:8080`
