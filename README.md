@@ -1,4 +1,4 @@
-
+![Project Background](./project/background.png)
 
 **Project Resume:**
 
