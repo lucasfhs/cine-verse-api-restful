@@ -1,109 +1,154 @@
-# Requisitos para API de Resenhas de Filmes
 
-## 📌 Requisitos Funcionais
 
-### 🔐 Autenticação & Usuários
+**Project Resume:**
 
-| ID   | Descrição                                         |
-| ---- | ------------------------------------------------- |
-| RF01 | Cadastro de usuários (nome, email, senha, avatar) |
-| RF02 | Autenticação JWT com refresh tokens               |
-| RF03 | Perfis de usuário (comum, crítico, admin)         |
-| RF04 | Recuperação de senha via email                    |
-| RF05 | Atualização de perfil                             |
+The **Movie API** is an API designed to manage an online film review application, allowing user interaction through comments. It includes abstract representations of movies, directors, users, and actors, with features such as following other users (who can be critics, regular users, or admins).
 
-### 🎬 Gestão de Filmes
+Users can also create lists of their favorite films, which are displayed on their profiles. Additionally, a reporting system has been implemented, allowing users to flag inappropriate reviews for admin review and action.
 
-| ID   | Descrição                                           |
-| ---- | --------------------------------------------------- |
-| RF06 | CRUD completo de filmes (admin apenas)              |
-| RF07 | Integração com TMDB/OMDb para dados automáticos     |
-| RF08 | Busca avançada com filtros (gênero, ano, avaliação) |
-| RF09 | Sistema de categorias/coleções                      |
+---
 
-### ✍️ Resenhas & Avaliações
+## **📝 Table of Contents**
 
-| ID   | Descrição                                            |
-| ---- | ---------------------------------------------------- |
-| RF10 | Criar/editar resenhas com nota (1-5) e spoiler alert |
-| RF11 | Sistema de likes e comentários                       |
-| RF12 | Cálculo automático de rating médio por filme         |
-| RF13 | Denúncia de conteúdo inapropriado                    |
+1. [Installation](#-installation)
+2. [Functional Requirements](#-functional-requirements)
+   - [Auth & Users](#-auth--users)
+   - [Movie Management](#-movie-management)
+   - [Reviews & Ratings](#-reviews--ratings)
+   - [Social Interactions](#-social-interactions)
+3. [Non-Functional Requirements](#️-non-functional-requirements)
+   - [Security](#security)
+   - [Performance](#performance)
+   - [Usability](#usability)
+4. [Business Rules](#more-business-rules)
 
-### 🤝 Interações Sociais
+---
 
-| ID   | Descrição                             |
-| ---- | ------------------------------------- |
-| RF14 | Seguir usuários e feed de atividades  |
-| RF15 | Criar listas personalizadas de filmes |
-| RF16 | Sistema de mensagens privadas         |
+## **🚀 Installation**
 
-### ⚙️ Administração
+### **Prerequisites**
 
-| ID   | Descrição                                 |
-| ---- | ----------------------------------------- |
-| RF17 | Painel admin com estatísticas e moderação |
-| RF18 | Verificação de contas de críticos         |
-| RF19 | Sistema de banimento de usuários          |
+- Docker and Docker Compose installed
+- Bash (Linux/macOS) or PowerShell (Windows)
 
-## 🛠️ Requisitos Não-Funcionais
+### **1. Environment Setup**
 
-### Segurança
+#### **Linux/macOS Users**
 
-| ID    | Descrição                                  |
-| ----- | ------------------------------------------ |
-| RNF01 | Autenticação JWT com tempo de expiração    |
-| RNF02 | Rate limiting (100 reqs/min por IP)        |
-| RNF03 | Validação e sanitização de todos os inputs |
-| RNF04 | Hash de senhas com bcrypt                  |
+Run this command in the root directory to generate your `.env` file:
 
-### Performance
+```bash
+./generateEnvFileUnix.sh
+```
 
-| ID    | Descrição                                         |
-| ----- | ------------------------------------------------- |
-| RNF05 | Tempo de resposta <500ms para 95% das requisições |
-| RNF06 | Cache Redis para endpoints de listagem            |
-| RNF07 | Paginação padrão em endpoints de listas           |
+#### **Windows Users**
 
-### Disponibilidade
+Run this PowerShell script in the root directory:
 
-| ID    | Descrição                           |
-| ----- | ----------------------------------- |
-| RNF08 | Uptime de 99.5%                     |
-| RNF09 | Backup diário dos dados             |
-| RNF10 | Monitoramento com New Relic/DataDog |
+```powershell
+.\generateEnvFileWindows.ps1
+```
 
-### Escalabilidade
+### **2. Launching the Application**
 
-| ID    | Descrição                                                   |
-| ----- | ----------------------------------------------------------- |
-| RNF11 | Arquitetura stateless                                       |
-| RNF12 | Design para fácil horizontal scaling                        |
-| RNF13 | Filas para processamento assíncrono (envio de emails, etc.) |
+```bash
+docker-compose up -d
+```
 
-### Usabilidade
+### **3. Verify Installation**
 
-| ID    | Descrição                               |
-| ----- | --------------------------------------- |
-| RNF14 | Documentação Swagger/OpenAPI completa   |
-| RNF15 | Versionamento da API (v1/, v2/)         |
-| RNF16 | Mensagens de erro claras e padronizadas |
+- API: `http://localhost:8080`
+- MongoDB: `mongodb://localhost:27017`
+- Redis: `redis://localhost:6379`
 
-### Regra de Negócio
+### **4. Common Commands**
 
-Um usuário não pode seguir ele mesmo.
-Não deve ser possível seguir uma pessoa várias vezes.
-As mensagens enviadas de usuario a usuario devem estar criptografadas no banco.
+| Action        | Command                            |
+| ------------- | ---------------------------------- |
+| Stop services | `docker-compose down`              |
+| View logs     | `docker-compose logs -f`           |
+| Rebuild API   | `docker-compose up -d --build api` |
 
-## 📦 Dependências Principais
+The system will automatically:
 
-- Express.js
-- TypeScript
-- PostgreSQL/MySQL
-- Redis (cache)
-- JWT (autenticação)
-- Nodemailer (emails)
-- Jest (testes)
-  mongodb://mongo:27017/expressApi
-  redis
-a
+- Configure MongoDB with persistent storage
+- Set up Redis with health monitoring
+- Build and deploy your API with all environment variables
+
+---
+
+## **🔐 Functional Requirements**
+
+### **Auth & Users**
+
+| ID       | Description                                           |
+| -------- | ----------------------------------------------------- |
+| **RF01** | User management (Create, Read, Update, Delete - CRUD) |
+| **RF02** | JWT-based authentication                              |
+| **RF03** | User roles (Regular, Critic, Admin)                   |
+| **RF04** | Login/Logout routes                                   |
+| **RF05** | Token refresh route using HTTP-only cookies           |
+
+### **🎬 Movie Management**
+
+| ID       | Description                                     |
+| -------- | ----------------------------------------------- |
+| **RF06** | Full CRUD operations for movies                 |
+| **RF07** | List of actors and directors                    |
+| **RF09** | Category/collection system for organizing films |
+
+### **✍️ Reviews & Ratings**
+
+| ID       | Description                                                 |
+| -------- | ----------------------------------------------------------- |
+| **RF10** | Create/edit reviews with ratings (1-5) and spoiler warnings |
+| **RF11** | Like system and comment functionality                       |
+| **RF13** | Reporting system for inappropriate content                  |
+
+### **🤝 Social Interactions**
+
+| ID       | Description                          |
+| -------- | ------------------------------------ |
+| **RF14** | Follow users and view activity feeds |
+| **RF15** | Create custom movie lists            |
+| **RF16** | Private messaging system             |
+
+---
+
+## **🛠️ Non-Functional Requirements**
+
+### **Security**
+
+| ID    | Description                                           |
+| ----- | ----------------------------------------------------- |
+| RNF01 | JWT authentication with token expiration              |
+| RNF03 | Input validation and sanitization for all user inputs |
+| RNF04 | Password hashing using bcrypt                         |
+| RNF05 | Redis-based token denylist for invalidated JWT tokens |
+
+### **Performance**
+
+| ID    | Description                               |
+| ----- | ----------------------------------------- |
+| RNF06 | 95% of requests must respond within 500ms |
+| RNF07 | Redis caching for listing endpoints       |
+| RNF08 | Default pagination for list endpoints     |
+
+### **Usability**
+
+| ID    | Description                            |
+| ----- | -------------------------------------- |
+| RNF14 | Complete Swagger/OpenAPI documentation |
+| RNF16 | Clear and standardized error messages  |
+
+---
+
+## **📜 More Business Rules**
+
+1. A user cannot follow themselves
+2. Users cannot follow the same person multiple times
+
+---
+
+**Need Help?**  
+Check the Swagger docs at `http://localhost:8080/api-docs` after startup!
