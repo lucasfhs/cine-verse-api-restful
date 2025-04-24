@@ -1,6 +1,6 @@
 import { timeStamp } from "console";
-import { CrudTestHelper } from "../utils/CrudTestHelper";
-import { TestEnvironment } from "../utils/TestEnvironment";
+import { CrudTestHelper } from "../../utils/CrudTestHelper";
+import { TestEnvironment } from "../../utils/TestEnvironment";
 import { generateMongodbId } from "../../utils/mongodbIdValidator";
 
 class ListTestHelper extends CrudTestHelper {

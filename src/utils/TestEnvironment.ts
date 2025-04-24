@@ -1,12 +1,16 @@
 // test/utils/TestEnvironment.ts
-import Database from "../../config/database";
-import RedisDB from "../../config/redis";
+import Database from "../config/database";
+import RedisDB from "../config/redis";
 import request from "supertest";
-import app from "../../app";
+import app from "../app";
 
 export class TestEnvironment {
   private static token: string;
-
+  private static async testUserSetup() {
+    const testUser = await request(app)
+      .post("/register")
+      .send({ email: "test@test.com", password: "admin" });
+  }
   static async setup(): Promise<void> {
     await Database.getInstance();
     await RedisDB.getInstance();

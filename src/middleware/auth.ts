@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { isTokenBlacklisted, blacklistToken } from "../utils/blacklist";
+import { isTokenBlacklisted, blacklistToken } from "../utils/tokenBlacklist";
 import Logger from "../config/logger";
 import { asyncHandler } from "../utils/asyncHandler";
 

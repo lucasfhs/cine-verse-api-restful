@@ -1,6 +1,5 @@
-// test/utils/CrudTestHelper.ts
 import request from "supertest";
-import app from "../../app";
+import app from "../app";
 
 export abstract class CrudTestHelper {
   protected token: string = "";

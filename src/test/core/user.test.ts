@@ -1,5 +1,5 @@
-import { CrudTestHelper } from "../utils/CrudTestHelper";
-import { TestEnvironment } from "../utils/TestEnvironment";
+import { CrudTestHelper } from "../../utils/CrudTestHelper";
+import { TestEnvironment } from "../../utils/TestEnvironment";
 
 class UserTestHelper extends CrudTestHelper {
   constructor() {
@@ -49,9 +49,7 @@ describe("[GET] /user", () => {
 
 describe("[GET] /user/:id", () => {
   it("should return a user by id", async () => {
-    const created = await userHelper.create(
-      userHelper.generateUserPayload()
-    );
+    const created = await userHelper.create(userHelper.generateUserPayload());
     const id = created.body.data._id;
     const response = await userHelper.getOne(id);
 
