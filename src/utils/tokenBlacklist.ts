@@ -1,11 +1,24 @@
 import redis from "../config/redis";
-const redisInstance = redis.getInstance();
 
-export async function blacklistToken(token: string, expiresInSeconds: number) {
-  await redisInstance.set(`blacklist:${token}`, "true", "EX", expiresInSeconds);
-}
+export class TokenBlackList {
+  private redisInstance: any;
 
-export async function isTokenBlacklisted(token: string): Promise<boolean> {
-  const result = await redisInstance.get(`blacklist:${token}`);
-  return result !== null;
+  constructor(redisClient?: any) {
+    // Permite injetar um mock no teste, ou usar o redis real na produção
+    this.redisInstance = redisClient || redis.getInstance();
+  }
+
+  async blacklistToken(token: string, expiresInSeconds: number): Promise<void> {
+    await this.redisInstance.set(
+      `blacklist:${token}`,
+      "true",
+      "EX",
+      expiresInSeconds
+    );
+  }
+
+  async isTokenBlacklisted(token: string): Promise<boolean> {
+    const result = await this.redisInstance.get(`blacklist:${token}`);
+    return result !== null;
+  }
 }

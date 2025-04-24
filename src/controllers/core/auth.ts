@@ -7,7 +7,7 @@ import {
 } from "../../utils/tokenUtils";
 import { UserModel, UserType } from "../../models/core/User";
 import Logger from "../../config/logger";
-import { blacklistToken, isTokenBlacklisted } from "../../utils/tokenBlacklist";
+import { blacklistToken, isTokenBlacklisted } from "../../utils/tokenBlackList";
 /**
  * Register a new user
  * @async
