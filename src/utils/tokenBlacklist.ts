@@ -4,7 +4,6 @@ export class TokenBlackList {
   private redisInstance: any;
 
   constructor(redisClient?: any) {
-    // Permite injetar um mock no teste, ou usar o redis real na produção
     this.redisInstance = redisClient || redis.getInstance();
   }
 

@@ -7,17 +7,8 @@ import {
 } from "../../utils/tokenUtils";
 import { UserModel, UserType } from "../../models/core/User";
 import Logger from "../../config/logger";
-import { blacklistToken, isTokenBlacklisted } from "../../utils/tokenBlackList";
-/**
- * Register a new user
- * @async
- * @function register
- * @param {Request} req - Express request object
- * @param {Response} res - Express response object
- * @returns {Promise<void>} - Returns a response with the created user data or an error
- * @throws {MongoServerError} - If email is not unique (error code 11000)
- * @throws {Error} - For any other server error
- */
+import { TokenBlackList } from "../../utils/tokenBlackList";
+
 export const register = async (req: Request, res: Response) => {
   try {
     const {
@@ -75,15 +66,6 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Authenticate user and generate access/refresh tokens
- * @async
- * @function login
- * @param {Request} req - Express request object containing email and password
- * @param {Response} res - Express response object
- * @returns {Promise<void>} - Returns access token and sets refresh token as HTTP-only cookie
- * @throws {Error} - If credentials are invalid or server error occurs
- */
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -109,22 +91,15 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Generate a new access token using a refresh token
- * @function refreshToken
- * @param {Request} req - Express request object containing refresh token cookie
- * @param {Response} res - Express response object
- * @returns {void} - Returns new access token or error if refresh token is invalid
- */
 export const refreshToken = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
-
+  const tokenBlackList = new TokenBlackList();
   if (!refreshToken) {
     res.status(401).json({ message: "Refresh Token is required" });
   }
 
   try {
-    const isBlacklisted = await isTokenBlacklisted(refreshToken);
+    const isBlacklisted = await tokenBlackList.isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
       res.status(403).json({ message: "Refresh token has been invalidated" });
     }
@@ -140,7 +115,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       : 7 * 24 * 60 * 60;
     const accesstoken = req.header("Authorization")?.split(" ")[1];
     if (accesstoken) {
-      await blacklistToken(accesstoken, expiresIn);
+      await tokenBlackList.blacklistToken(accesstoken, expiresIn);
     }
 
     const newAccessToken = generateAccessToken(decoded.userId);
@@ -151,15 +126,9 @@ export const refreshToken = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Logout user by clearing refresh token cookie
- * @function logout
- * @param {Request} req - Express request object
- * @param {Response} res - Express response object
- * @returns {void} - Confirmation of successful logout
- */
 export const logout = async (req: Request, res: Response) => {
   try {
+    const tokenBlackList = new TokenBlackList();
     const refreshToken = req.cookies.refreshToken;
     const accessToken = req.header("Authorization")?.split(" ")[1];
     if (!refreshToken) {
@@ -169,7 +138,7 @@ export const logout = async (req: Request, res: Response) => {
       res.status(400).json({ message: "No access token provided" });
     }
 
-    const isBlacklisted = await isTokenBlacklisted(refreshToken);
+    const isBlacklisted = await tokenBlackList.isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
       res.status(400).json({
         message: "User is already logged out or token is invalidated",
@@ -185,8 +154,8 @@ export const logout = async (req: Request, res: Response) => {
       ? Math.floor(decoded.exp - Date.now() / 1000)
       : 7 * 24 * 60 * 60;
 
-    await blacklistToken(refreshToken!, expiresIn);
-    await blacklistToken(accessToken!, expiresIn);
+    await tokenBlackList.blacklistToken(refreshToken!, expiresIn);
+    await tokenBlackList.blacklistToken(accessToken!, expiresIn);
     res.clearCookie("refreshToken");
     res.json({ message: "Logged out successfully" });
   } catch (error) {
