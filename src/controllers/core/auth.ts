@@ -5,7 +5,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../utils/tokenUtils";
-import { UserModel, UserType } from "../../models/core/User";
+import { UserModel } from "../../models/core/User";
 import Logger from "../../config/logger";
 import { TokenBlackList } from "../../utils/tokenBlackList";
 
@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
       role,
       avatar,
       phoneNumber,
-    }: UserType = req.body;
+    } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await UserModel.create({
