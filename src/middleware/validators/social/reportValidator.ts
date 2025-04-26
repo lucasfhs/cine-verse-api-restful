@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
+import { isValidMongodbId } from "@/utils/mongodbIdValidator";
 
 export const findOneReportValidation = () => {
   return [

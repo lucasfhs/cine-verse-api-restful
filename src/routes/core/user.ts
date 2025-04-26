@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { userController } from "../../controllers/core/user";
+import { userController } from "@/controllers/core/user";
 import {
   findOneUserValidation,
   userCreateValidation,
   updateUserValidation,
   deleteOneUserValidation,
-} from "../../middleware/validators/core/userValidator";
-import { validate } from "../../middleware/handleValidator";
+} from "@/middleware/validators/core/userValidator";
+import { validate } from "@/middleware/handleValidator";
 const router = Router();
 router.get("/user", userController.findAll);
 router.get(

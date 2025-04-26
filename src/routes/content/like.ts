@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import { likeController } from "../../controllers/content/like";
+import { likeController } from "@/controllers/content/like";
 import {
   findOneLikeValidation,
   likeCreateValidation,
   updateLikeValidation,
   deleteOneLikeValidation,
-} from "../../middleware/validators/content/likeValidator";
-import { validate } from "../../middleware/handleValidator";
+} from "@/middleware/validators/content/likeValidator";
+import { validate } from "@/middleware/handleValidator";
 const router = Router();
 router.get("/like", likeController.findAll);
 router.get(

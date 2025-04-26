@@ -1,10 +1,3 @@
-/**
- * Authentication routes module.
- * @module routes/auth
- * @requires express
- * @requires ../controllers/auth
- */
-
 import { Router } from "express";
 import {
   register,

@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { actorController } from "../../controllers/core/actor";
+import { actorController } from "@/controllers/core/actor";
 import {
   findOneActorValidation,
   actorCreateValidation,
   updateActorValidation,
   deleteOneActorValidation,
-} from "../../middleware/validators/core/actorValidator";
-import { validate } from "../../middleware/handleValidator";
+} from "@/middleware/validators/core/actorValidator";
+import { validate } from "@/middleware/handleValidator";
 const router = Router();
 router.get("/actor", actorController.findAll);
 router.get(

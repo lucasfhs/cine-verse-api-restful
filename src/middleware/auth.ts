@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { isTokenBlacklisted, blacklistToken } from "../utils/tokenBlackList";
 import Logger from "../config/logger";
 import { asyncHandler } from "../utils/asyncHandler";
+import { TokenBlackList } from "@/utils/tokenBlackList";
 
 interface RequestAuthenticate extends Request {
   userId?: string;
@@ -13,13 +13,14 @@ interface RefreshRequest extends Request {
 
 export const authMiddleware = asyncHandler(
   async (req: RequestAuthenticate, res: Response, next: NextFunction) => {
+    const tokenBlackList = new TokenBlackList();
     const token = req.header("Authorization")?.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({ message: "Access Token is required" });
     }
 
-    const blacklisted = await isTokenBlacklisted(token);
+    const blacklisted = await tokenBlackList.isTokenBlacklisted(token);
     if (blacklisted) {
       Logger.warn(`Attempt to use blacklisted token: ${token}`);
       return res.status(401).json({ message: "Token has been revoked" });
@@ -49,7 +50,7 @@ export const refreshAuthMiddleware = asyncHandler(
   async (req: RefreshRequest, res: Response, next: NextFunction) => {
     const refreshToken = req.cookies.refreshToken;
     const accessToken = req.header("Authorization")?.split(" ")[1];
-
+    const tokenBlackList = new TokenBlackList();
     if (!accessToken) {
       return res.status(401).json({
         message: "Access token is required for refresh. Please login again.",
@@ -62,7 +63,7 @@ export const refreshAuthMiddleware = asyncHandler(
       });
     }
 
-    const isBlacklisted = await isTokenBlacklisted(refreshToken);
+    const isBlacklisted = await tokenBlackList.isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
       return res.status(403).json({
         message: "Refresh token has been invalidated.",
@@ -79,7 +80,7 @@ export const refreshAuthMiddleware = asyncHandler(
     if (decodedAccess?.exp) {
       const expiresIn = Math.floor(decodedAccess.exp - Date.now() / 1000);
       if (expiresIn > 0) {
-        await blacklistToken(accessToken, expiresIn);
+        await tokenBlackList.blacklistToken(accessToken, expiresIn);
       }
     }
 

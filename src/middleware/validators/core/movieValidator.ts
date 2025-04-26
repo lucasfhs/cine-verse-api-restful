@@ -1,7 +1,7 @@
 import { body, param } from "express-validator";
-import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
-import { capitalizeName } from "../../../utils/stringUtils";
-import { NumberRangeValidator } from "../../../utils/numberRange";
+import { isValidMongodbId } from "@/utils/mongodbIdValidator";
+import { capitalizeName } from "@/utils/stringUtils";
+import { NumberRangeValidator } from "@/utils/numberRange";
 
 export const findOneMovieValidation = () => {
   return [

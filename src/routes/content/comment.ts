@@ -5,14 +5,14 @@ import {
   createOneComment,
   updateOneComment,
   deleteOneComment,
-} from "../../controllers/content/comment";
+} from "@/controllers/content/comment";
 import {
   findOneCommentValidation,
   commentCreateValidation,
   updateCommentValidation,
   deleteOneCommentValidation,
-} from "../../middleware/validators/content/commentValidator";
-import { validate } from "../../middleware/handleValidator";
+} from "@/middleware/validators/content/commentValidator";
+import { validate } from "@/middleware/handleValidator";
 
 const router = Router();
 

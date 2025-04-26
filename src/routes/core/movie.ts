@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { movieController } from "../../controllers/core/movie";
+import { movieController } from "@/controllers/core/movie";
 import {
   movieCreateValidation,
   findOneMovieValidation,
   updateMovieValidation,
   deleteOneMovieValidation,
-} from "../../middleware/validators/core/movieValidator";
-import { validate } from "../../middleware/handleValidator";
+} from "@/middleware/validators/core/movieValidator";
+import { validate } from "@/middleware/handleValidator";
 const router = Router();
 router.post(
   "/movie",

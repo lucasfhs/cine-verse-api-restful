@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CommentModel } from "../../models/content/Comment";
-import { encryptMessage, decryptMessage } from "../../utils/crypto";
-import Logger from "../../config/logger";
+import { CommentModel } from "@/models/content/Comment";
+import { encryptMessage, decryptMessage } from "@/utils/crypto";
+import Logger from "@/config/logger";
 
 export async function findAllComments(req: Request, res: Response) {
   try {

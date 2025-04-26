@@ -1,7 +1,8 @@
 // controllers/BaseController.ts
 import { Request, Response } from "express";
 import { Model, Types } from "mongoose";
-import Logger from "../config/logger";
+import HttpStatusCode from "@/utils/httpStatusCode";
+import Logger from "@/config/logger";
 
 export class BaseController<T> {
   constructor(private model: Model<T>, private name: string) {}
@@ -10,25 +11,28 @@ export class BaseController<T> {
     try {
       const docs = await this.model.find().lean();
       if (docs.length > 0) {
-        res.status(200).json({
+        res.status(HttpStatusCode.OK).json({
           success: true,
           count: docs.length,
           data: docs,
         });
       } else {
-        res.status(404).json({
+        res.status(HttpStatusCode.NotFound).json({
           success: false,
           error: {
-            code: 404,
+            code: HttpStatusCode.NotFound,
             message: `No ${this.name}s found.`,
           },
         });
       }
     } catch (error: any) {
       Logger.error(`Error on find ${this.name}s: ${error.message}`);
-      res.status(500).json({
+      res.status(HttpStatusCode.InternalServerError).json({
         success: false,
-        error: { code: 500, message: "Internal server error" },
+        error: {
+          code: HttpStatusCode.InternalServerError,
+          message: "Internal server error",
+        },
       });
     }
   };
@@ -38,21 +42,24 @@ export class BaseController<T> {
       const id = req.params.id;
       const doc = await this.model.findById(id);
       if (doc) {
-        res.status(200).json({ success: true, data: doc });
+        res.status(HttpStatusCode.OK).json({ success: true, data: doc });
       } else {
-        res.status(404).json({
+        res.status(HttpStatusCode.NotFound).json({
           success: false,
           error: {
-            code: 404,
+            code: HttpStatusCode.NotFound,
             message: `${this.name} not found.`,
           },
         });
       }
     } catch (error: any) {
       Logger.error(`Error on find ${this.name}: ${error.message}`);
-      res.status(500).json({
+      res.status(HttpStatusCode.InternalServerError).json({
         success: false,
-        error: { code: 500, message: "Internal server error" },
+        error: {
+          code: HttpStatusCode.InternalServerError,
+          message: "Internal server error",
+        },
       });
     }
   };
@@ -60,21 +67,24 @@ export class BaseController<T> {
   createOne = async (req: Request, res: Response) => {
     try {
       const doc = await this.model.create(req.body);
-      res.status(201).json({ success: true, data: doc });
+      res.status(HttpStatusCode.Created).json({ success: true, data: doc });
     } catch (error: any) {
       Logger.error(`Error creating ${this.name}: ${error.message}`);
       if (error.name === "MongoServerError" && error.code === 11000) {
-        res.status(409).json({
+        res.status(HttpStatusCode.Conflict).json({
           success: false,
           error: {
-            code: 409,
+            code: HttpStatusCode.Conflict,
             message: `${this.name} must be unique`,
           },
         });
       } else {
-        res.status(500).json({
+        res.status(HttpStatusCode.InternalServerError).json({
           success: false,
-          error: { code: 500, message: "Internal server error" },
+          error: {
+            code: HttpStatusCode.InternalServerError,
+            message: "Internal server error",
+          },
         });
       }
     }
@@ -84,10 +94,10 @@ export class BaseController<T> {
     try {
       const id = req.params.id;
       if (!Types.ObjectId.isValid(id)) {
-        res.status(400).json({
+        res.status(HttpStatusCode.BadRequest).json({
           success: false,
           error: {
-            code: 400,
+            code: HttpStatusCode.BadRequest,
             message: "Invalid ID format",
           },
         });
@@ -98,18 +108,24 @@ export class BaseController<T> {
       });
 
       if (updated) {
-        res.status(200).json({ success: true, data: updated });
+        res.status(HttpStatusCode.OK).json({ success: true, data: updated });
       } else {
-        res.status(404).json({
+        res.status(HttpStatusCode.NotFound).json({
           success: false,
-          error: { code: 404, message: `${this.name} not found.` },
+          error: {
+            code: HttpStatusCode.NotFound,
+            message: `${this.name} not found.`,
+          },
         });
       }
     } catch (error: any) {
       Logger.error(`Error updating ${this.name}: ${error.message}`);
-      res.status(500).json({
+      res.status(HttpStatusCode.InternalServerError).json({
         success: false,
-        error: { code: 500, message: "Internal server error" },
+        error: {
+          code: HttpStatusCode.InternalServerError,
+          message: "Internal server error",
+        },
       });
     }
   };
@@ -118,10 +134,10 @@ export class BaseController<T> {
     try {
       const id = req.params.id;
       if (!Types.ObjectId.isValid(id)) {
-        res.status(400).json({
+        res.status(HttpStatusCode.BadRequest).json({
           success: false,
           error: {
-            code: 400,
+            code: HttpStatusCode.BadRequest,
             message: "Invalid ID format",
           },
         });
@@ -129,18 +145,24 @@ export class BaseController<T> {
 
       const deleted = await this.model.findByIdAndDelete(id);
       if (deleted) {
-        res.status(200).json({ success: true, data: deleted });
+        res.status(HttpStatusCode.OK).json({ success: true, data: deleted });
       } else {
-        res.status(404).json({
+        res.status(HttpStatusCode.NotFound).json({
           success: false,
-          error: { code: 404, message: `${this.name} not found.` },
+          error: {
+            code: HttpStatusCode.NotFound,
+            message: `${this.name} not found.`,
+          },
         });
       }
     } catch (error: any) {
       Logger.error(`Error deleting ${this.name}: ${error.message}`);
-      res.status(500).json({
+      res.status(HttpStatusCode.InternalServerError).json({
         success: false,
-        error: { code: 500, message: "Internal server error" },
+        error: {
+          code: HttpStatusCode.InternalServerError,
+          message: "Internal server error",
+        },
       });
     }
   };

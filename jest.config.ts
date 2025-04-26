@@ -5,6 +5,9 @@ const config: Config.InitialOptions = {
   verbose: true,
   collectCoverage: false,
   collectCoverageFrom: ["<rootDir>/src/controllers/**/*.ts"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
 };
 
 export default config;

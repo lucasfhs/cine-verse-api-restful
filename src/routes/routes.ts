@@ -10,7 +10,7 @@ import commentRoutes from "./content/comment";
 import likeRoutes from "./content/like";
 import listRoutes from "./content/list";
 import reviewRoutes from "./content/review";
-import morganMiddleware from "../middleware/morgan";
+import morganMiddleware from "@/middleware/morgan";
 
 const router = Router();
 router.use(morganMiddleware);

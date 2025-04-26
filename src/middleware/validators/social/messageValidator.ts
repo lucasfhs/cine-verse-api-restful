@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
-import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
-import validateDifferentFrom from "../../../utils/ensureDifferentIds";
+import { isValidMongodbId } from "@/utils/mongodbIdValidator";
+import validateDifferentFrom from "@/utils/ensureDifferentIds";
 
 //   sender_id: {
 //     type: Schema.Types.ObjectId,

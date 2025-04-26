@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
-import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
-import { capitalizeName } from "../../../utils/stringUtils";
+import { isValidMongodbId } from "@/utils/mongodbIdValidator";
+import { capitalizeName } from "@/utils/stringUtils";
 enum UserRole {
   Admin = "admin",
   Common = "common",

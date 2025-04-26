@@ -5,9 +5,9 @@ import {
   listCreateValidation,
   updateListValidation,
   deleteOneListValidation,
-} from "../../middleware/validators/content/listValidator";
-import { validate } from "../../middleware/handleValidator";
-import { listController } from "../../controllers/content/list";
+} from "@/middleware/validators/content/listValidator";
+import { validate } from "@/middleware/handleValidator";
+import { listController } from "@/controllers/content/list";
 const router = Router();
 router.get("/list", listController.findAll);
 router.get(

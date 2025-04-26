@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
-import { isValidMongodbId } from "../../../utils/mongodbIdValidator";
-import { capitalizeName } from "../../../utils/stringUtils";
+import { isValidMongodbId } from "@/utils/mongodbIdValidator";
+import { capitalizeName } from "@/utils/stringUtils";
 
 export const findOneActorValidation = () => {
   return [

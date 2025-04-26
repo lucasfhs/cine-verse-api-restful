@@ -4,9 +4,9 @@ import {
   reviewCreateValidation,
   updateReviewValidation,
   deleteOneReviewValidation,
-} from "../../middleware/validators/content/reviewValidator";
-import { validate } from "../../middleware/handleValidator";
-import { reviewController } from "../../controllers/content/review";
+} from "@/middleware/validators/content/reviewValidator";
+import { validate } from "@/middleware/handleValidator";
+import { reviewController } from "@/controllers/content/review";
 const router = Router();
 router.get("/review", reviewController.findAll);
 router.get(
