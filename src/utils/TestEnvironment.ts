@@ -6,25 +6,37 @@ import app from "../app";
 
 export class TestEnvironment {
   private static token: string;
+
+  private static async loginTestUser() {
+    const loginResponse = await request(app)
+      .post("/login")
+      .send({ email: "test@test.com", password: "g$ao3~C{E-9)9s[w8;bZ_" });
+    return loginResponse;
+  }
+
   private static async testUserSetup() {
-    const testUser = await request(app)
-      .post("/register")
-      .send({ email: "test@test.com", password: "admin" });
+    if (TestEnvironment.token) return;
+
+    let userLogin = await TestEnvironment.loginTestUser();
+
+    if (!userLogin.ok) {
+      await request(app).post("/register").send({
+        username: "test-jest",
+        email: "test@test.com",
+        password: "g$ao3~C{E-9)9s[w8;bZ_",
+        rePassword: "g$ao3~C{E-9)9s[w8;bZ_",
+        recoveryEmail: "recoveryEmailTest@test.com",
+        securityAnswer: "jest-test",
+      });
+      userLogin = await TestEnvironment.loginTestUser();
+    }
+
+    TestEnvironment.token = userLogin.body.accessToken;
   }
   static async setup(): Promise<void> {
-    await Database.getInstance();
     await RedisDB.getInstance();
-    if (!TestEnvironment.token) {
-      const loginResponse = await request(app)
-        .post("/login")
-        .send({ email: "admin@admin.com", password: "admin" });
-      if (!loginResponse) {
-        console.log(
-          "Please register the user with the email 'admin@admin.com' and password 'admin' to run the tests."
-        );
-      }
-      this.token = loginResponse.body.accessToken;
-    }
+    await Database.getInstance();
+    await TestEnvironment.testUserSetup();
   }
 
   static async teardown(): Promise<void> {

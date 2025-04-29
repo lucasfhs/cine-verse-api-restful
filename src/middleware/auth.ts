@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import Logger from "../config/logger";
-import { asyncHandler } from "../utils/asyncHandler";
+import Logger from "@/config/logger";
+import { asyncHandler } from "@/utils/asyncHandler";
 import { TokenBlackList } from "@/utils/tokenBlackList";
-
+import HttpStatusCode from "@/utils/httpStatusCode";
 interface RequestAuthenticate extends Request {
   userId?: string;
 }
@@ -17,13 +17,17 @@ export const authMiddleware = asyncHandler(
     const token = req.header("Authorization")?.split(" ")[1];
 
     if (!token) {
-      return res.status(401).json({ message: "Access Token is required" });
+      return res
+        .status(HttpStatusCode.Unauthorized)
+        .json({ message: "Access Token is required" });
     }
 
     const blacklisted = await tokenBlackList.isTokenBlacklisted(token);
     if (blacklisted) {
       Logger.warn(`Attempt to use blacklisted token: ${token}`);
-      return res.status(401).json({ message: "Token has been revoked" });
+      return res
+        .status(HttpStatusCode.Unauthorized)
+        .json({ message: "Token has been revoked" });
     }
 
     try {
@@ -35,13 +39,19 @@ export const authMiddleware = asyncHandler(
       next();
     } catch (err: any) {
       if (err.name === "TokenExpiredError") {
-        return res.status(401).json({ message: "Access token expired" });
+        return res
+          .status(HttpStatusCode.Unauthorized)
+          .json({ message: "Access token expired" });
       } else if (err.name === "JsonWebTokenError") {
-        return res.status(401).json({ message: "Invalid token" });
+        return res
+          .status(HttpStatusCode.Unauthorized)
+          .json({ message: "Invalid token" });
       }
 
       Logger.error(`Token verification error: ${err.message}`);
-      return res.status(500).json({ message: "Internal server error" });
+      return res
+        .status(HttpStatusCode.InternalServerError)
+        .json({ message: "Internal server error" });
     }
   }
 );
@@ -52,20 +62,20 @@ export const refreshAuthMiddleware = asyncHandler(
     const accessToken = req.header("Authorization")?.split(" ")[1];
     const tokenBlackList = new TokenBlackList();
     if (!accessToken) {
-      return res.status(401).json({
+      return res.status(HttpStatusCode.Unauthorized).json({
         message: "Access token is required for refresh. Please login again.",
       });
     }
 
     if (!refreshToken) {
-      return res.status(401).json({
+      return res.status(HttpStatusCode.Unauthorized).json({
         message: "Refresh token is required.",
       });
     }
 
     const isBlacklisted = await tokenBlackList.isTokenBlacklisted(refreshToken);
     if (isBlacklisted) {
-      return res.status(403).json({
+      return res.status(HttpStatusCode.Forbidden).json({
         message: "Refresh token has been invalidated.",
       });
     }

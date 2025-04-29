@@ -1,6 +1,6 @@
 import { CrudTestHelper } from "../../utils/CrudTestHelper";
 import { TestEnvironment } from "../../utils/TestEnvironment";
-
+import { generateMongodbId } from "../../utils/mongodbIdValidator";
 class UserTestHelper extends CrudTestHelper {
   constructor() {
     super("/user");
@@ -9,13 +9,19 @@ class UserTestHelper extends CrudTestHelper {
   generateUserPayload() {
     const timestamp = Date.now();
     return {
-      name: "Test User",
-      nickname: `user_${timestamp}`,
-      email: `user_${timestamp}@example.com`,
-      password: "123456",
-      avatar: "https://www.google.com/",
-      phoneNumber: ["3133888395"],
+      name: `User Test ${timestamp}`,
+      accountId: generateMongodbId(),
       role: "common",
+      avatar: "https://example.com/avatar.png",
+      phoneNumbers: ["+1234567890", "+0987654321"],
+      address: {
+        street: "123 Main St",
+        neighborhood: "Downtown",
+        city: "New York",
+        state: "NY",
+        postalCode: "10001",
+        country: "USA",
+      },
     };
   }
 }
@@ -31,6 +37,7 @@ describe("[POST] /user", () => {
   it("should create a new user", async () => {
     const payload = userHelper.generateUserPayload();
     const response = await userHelper.create(payload);
+    console.log(response.body);
 
     expect(response.status).toBe(201);
     expect(response.body.data).toHaveProperty("_id");
@@ -62,11 +69,13 @@ describe("[PUT] /user/:id", () => {
   it("should update a user by id", async () => {
     const created = await userHelper.create(userHelper.generateUserPayload());
     const id = created.body.data._id;
-
-    const response = await userHelper.update(id, { name: "Updated Name" });
+    const expected = `Updated Name ${Date.now().toLocaleString()}`;
+    const response = await userHelper.update(id, {
+      name: expected,
+    });
 
     expect(response.status).toBe(200);
-    expect(response.body.data.name).toBe("Updated Name");
+    expect(response.body.data.name).toBe(expected);
   });
 });
 

@@ -5,7 +5,7 @@ import HttpStatusCode from "@/utils/httpStatusCode";
 import Logger from "@/config/logger";
 
 export class BaseController<T> {
-  constructor(private model: Model<T>, private name: string) {}
+  constructor(protected model: Model<T>, protected name: string) {}
 
   findAll = async (req: Request, res: Response) => {
     try {

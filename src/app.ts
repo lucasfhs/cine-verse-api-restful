@@ -1,10 +1,10 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import router from "./routes/routes";
-import authRoutes from "./routes/auth";
 import { authMiddleware } from "./middleware/auth";
 import { setupSwagger } from "./config/swaggerConfig";
 import welcomeRoute from "./routes/welcome";
+import authRoutes from "./routes/core/auth";
 const app = express();
 
 /* Middleware JSON */

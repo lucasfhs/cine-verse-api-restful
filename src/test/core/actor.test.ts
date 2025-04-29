@@ -1,134 +1,91 @@
-import request from "supertest";
-import app from "../../app";
-import Database from "../../config/database";
-import RedisDB from "../../config/redis";
+import { CrudTestHelper } from "../../utils/CrudTestHelper";
+import { TestEnvironment } from "../../utils/TestEnvironment";
 
-let token: string;
+class ActorTestHelper extends CrudTestHelper {
+  constructor() {
+    super("/actor");
+  }
+
+  generateActorPayload() {
+    const timestamp = Date.now();
+    return {
+      name: `Test Actor${timestamp}`,
+      birthdate: timestamp,
+      nationality: "Brazil",
+    };
+  }
+}
+
+const actorHelper = new ActorTestHelper();
 
 beforeAll(async () => {
-  await Database.getInstance();
-  await RedisDB.getInstance();
-
-  const loginResponse = await request(app)
-    .post("/login")
-    .send({ email: "admin@admin.com", password: "admin" });
-
-  token = loginResponse.body.accessToken;
+  await TestEnvironment.setup();
+  actorHelper.setToken(TestEnvironment.getToken());
 }, 10000);
 
 describe("[POST] /actor", () => {
   it("should create a new actor", async () => {
-    // arrange:
-    const endpoint = "/actor";
-    const payload = {
-      name: "Test Actor",
-      birthdate: Date.now(),
-      nationality: "Brazil",
-    };
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 201;
+    const payload = actorHelper.generateActorPayload();
+    const response = await actorHelper.create(payload);
 
-    // act:
-    const response = await request(app)
-      .post(endpoint)
-      .set(headers)
-      .send(payload);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+    expect(response.status).toBe(201);
     expect(response.body.data).toHaveProperty("_id");
     expect(response.body.data.name).toBe(payload.name);
     expect(response.body.data.nationality).toBe(payload.nationality);
-    // expect(response.body.data.birthdate).toBe(payload.birthdate);
   });
 });
 
 describe("[GET] /actor", () => {
   it("should return all actors when authorized", async () => {
-    // arrange:
-    const endpoint = "/actor";
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 200;
+    const response = await actorHelper.getAll();
 
-    // act:
-    const response = await request(app).get(endpoint).set(headers);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+    expect(response.status).toBe(200);
     expect(Array.isArray(response.body.data)).toBe(true);
   });
 });
 
+describe("[GET] /actor/:id", () => {
+  it("should return an actor by id", async () => {
+    const created = await actorHelper.create(
+      actorHelper.generateActorPayload()
+    );
+    const id = created.body.data._id;
+    const response = await actorHelper.getOne(id);
+
+    expect(response.status).toBe(200);
+    expect(response.body.data._id).toBe(id);
+  });
+});
+
 describe("[PUT] /actor/:id", () => {
-  it("should update a actor by id", async () => {
-    // arrange:
-    const createResponse = await request(app)
-      .post("/actor")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Test actor",
-        birthdate: Date.now(),
-        nationality: "Brazil",
-      });
+  it("should update an actor by id", async () => {
+    const created = await actorHelper.create(
+      actorHelper.generateActorPayload()
+    );
+    const id = created.body.data._id;
 
-    const actorId = createResponse.body.data._id;
-    const endpoint = `/actor/${actorId}`;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const payload = {
+    const response = await actorHelper.update(id, {
       name: "Updated Name",
-    };
-    const expectedStatusCode = 200;
+    });
 
-    // act:
-    const response = await request(app)
-      .put(endpoint)
-      .set(headers)
-      .send(payload);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
-    expect(response.body.data.name).toBe(payload.name);
+    expect(response.status).toBe(200);
+    expect(response.body.data.name).toBe("Updated Name");
   });
 });
 
 describe("[DELETE] /actor/:id", () => {
-  it("should delete a actor by id", async () => {
-    // arrange:
-    const createResponse = await request(app)
-      .post("/actor")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Test actor",
-        birthdate: Date.now(),
-        nationality: "Brazil",
-      });
+  it("should delete an actor by id", async () => {
+    const created = await actorHelper.create(
+      actorHelper.generateActorPayload()
+    );
+    const id = created.body.data._id;
 
-    const actorId = createResponse.body.data._id;
-    const endpoint = `/actor/${actorId}`;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const expectedStatusCode = 200;
+    const response = await actorHelper.delete(id);
 
-    // act:
-    const response = await request(app).delete(endpoint).set(headers);
-
-    // assert:
-    expect(response.status).toBe(expectedStatusCode);
+    expect(response.status).toBe(200);
   });
 });
 
 afterAll(async () => {
-  if (Database.getConnectionStatus && Database.getConnectionStatus()) {
-    await Database.disconnect();
-  }
-  if (RedisDB.getConnectionStatus && RedisDB.getConnectionStatus()) {
-    await RedisDB.disconnect();
-  }
+  await TestEnvironment.teardown();
 });

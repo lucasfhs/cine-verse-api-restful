@@ -1,21 +1,23 @@
 import { Router } from "express";
-import {
-  register,
-  login,
-  refreshToken,
-  logout,
-} from "../controllers/core/auth";
-import { refreshAuthMiddleware } from "../middleware/auth";
-
+import { login, refreshToken, logout } from "@/controllers/core/auth";
+import { refreshAuthMiddleware } from "@/middleware/auth";
+import { accountController } from "@/controllers/core/account";
+import { validate } from "@/middleware/handleValidator";
+import { accountCreateValidation } from "@/middleware/validators/core/accountValidator";
 const router = Router();
 
-router.post("/register", register);
+router.post(
+  "/register",
+  accountCreateValidation(),
+  validate,
+  accountController.createOne
+);
 
 router.post("/login", login);
 
-router.post("/refresh-token", refreshAuthMiddleware, refreshToken);
+router.get("/refresh-token", refreshAuthMiddleware, refreshToken);
 
-router.post("/logout", refreshAuthMiddleware, logout);
+router.get("/logout", refreshAuthMiddleware, logout);
 /**
  * @swagger
  * tags:
@@ -179,5 +181,4 @@ router.post("/logout", refreshAuthMiddleware, logout);
  *       500:
  *         description: Erro ao realizar o logout
  */
-
 export default router;
