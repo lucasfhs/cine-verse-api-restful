@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-
+import { encryptMessage, decryptMessage } from "@/utils/crypto";
 const messageSchema = new Schema(
   {
     sender_id: {
@@ -12,9 +12,24 @@ const messageSchema = new Schema(
       ref: "User",
       required: true,
     },
-    content: String,
+    content: {
+      type: String,
+      required: true,
+      get: (val: string) => decryptMessage(val),
+      set: (val: string) => encryptMessage(val),
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      getters: true,
+      virtuals: false,
+    },
+    toObject: {
+      getters: true,
+      virtuals: false,
+    },
+  }
 );
 
 export const MessageModel = model("Message", messageSchema);

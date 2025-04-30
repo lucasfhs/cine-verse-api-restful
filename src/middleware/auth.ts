@@ -61,11 +61,11 @@ export const refreshAuthMiddleware = asyncHandler(
     const refreshToken = req.cookies.refreshToken;
     const accessToken = req.header("Authorization")?.split(" ")[1];
     const tokenBlackList = new TokenBlackList();
-    if (!accessToken) {
-      return res.status(HttpStatusCode.Unauthorized).json({
-        message: "Access token is required for refresh. Please login again.",
-      });
-    }
+    // if (!accessToken) {
+    //   return res.status(HttpStatusCode.Unauthorized).json({
+    //     message: "Access token is required for refresh. Please login again.",
+    //   });
+    // }
 
     if (!refreshToken) {
       return res.status(HttpStatusCode.Unauthorized).json({
@@ -85,12 +85,14 @@ export const refreshAuthMiddleware = asyncHandler(
       process.env.REFRESH_TOKEN_SECRET!
     ) as jwt.JwtPayload;
 
-    const decodedAccess = jwt.decode(accessToken) as jwt.JwtPayload | null;
+    const decodedAccess = jwt.decode(
+      accessToken as any
+    ) as jwt.JwtPayload | null;
 
     if (decodedAccess?.exp) {
       const expiresIn = Math.floor(decodedAccess.exp - Date.now() / 1000);
       if (expiresIn > 0) {
-        await tokenBlackList.blacklistToken(accessToken, expiresIn);
+        await tokenBlackList.blacklistToken(accessToken as any, expiresIn);
       }
     }
 

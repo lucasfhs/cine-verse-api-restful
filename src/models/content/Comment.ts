@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { encryptMessage, decryptMessage } from "@/utils/crypto";
 
 const commentSchema = new Schema(
   {
@@ -15,9 +16,21 @@ const commentSchema = new Schema(
     content: {
       type: String,
       required: true,
+      get: (val: string) => decryptMessage(val),
+      set: (val: string) => encryptMessage(val),
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      getters: true,
+      virtuals: false, 
+    },
+    toObject: {
+      getters: true,
+      virtuals: false,
+    },
+  }
 );
 
 export const CommentModel = model("Comment", commentSchema);

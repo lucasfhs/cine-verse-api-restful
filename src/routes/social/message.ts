@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneMessage,
-  findAllMessages,
-  createOneMessage,
-  updateOneMessage,
-  deleteOneMessage,
-} from "../../controllers/social/message";
+import { messageController } from "../../controllers/social/message";
 import {
   findOneMessageValidation,
   messageCreateValidation,
@@ -14,25 +8,30 @@ import {
 } from "../../middleware/validators/social/messageValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
-router.get("/message", findAllMessages);
+router.get("/message", messageController.findAll);
 router.get(
   "/message/:id",
   findOneMessageValidation(),
   validate,
-  findOneMessage
+  messageController.findOne
 );
-router.post("/message", messageCreateValidation(), validate, createOneMessage);
+router.post(
+  "/message",
+  messageCreateValidation(),
+  validate,
+  messageController.createOne
+);
 router.put(
   "/message/:id",
   updateMessageValidation(),
   validate,
-  updateOneMessage
+  messageController.updateOne
 );
 router.delete(
   "/message/:id",
   deleteOneMessageValidation(),
   validate,
-  deleteOneMessage
+  messageController.deleteOne
 );
 /**
  * @swagger

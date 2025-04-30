@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneReport,
-  findAllReports,
-  createOneReport,
-  updateOneReport,
-  deleteOneReport,
-} from "../../controllers/social/report";
+import { reportController } from "../../controllers/social/report";
 import {
   findOneReportValidation,
   reportCreateValidation,
@@ -14,15 +8,30 @@ import {
 } from "../../middleware/validators/social/reportValidator";
 import { validate } from "../../middleware/handleValidator";
 const router = Router();
-router.get("/report", findAllReports);
-router.get("/report/:id", findOneReportValidation(), validate, findOneReport);
-router.post("/report", reportCreateValidation(), validate, createOneReport);
-router.put("/report/:id", updateReportValidation(), validate, updateOneReport);
+router.get("/report", reportController.findAll);
+router.get(
+  "/report/:id",
+  findOneReportValidation(),
+  validate,
+  reportController.findOne
+);
+router.post(
+  "/report",
+  reportCreateValidation(),
+  validate,
+  reportController.createOne
+);
+router.put(
+  "/report/:id",
+  updateReportValidation(),
+  validate,
+  reportController.updateOne
+);
 router.delete(
   "/report/:id",
   deleteOneReportValidation(),
   validate,
-  deleteOneReport
+  reportController.deleteOne
 );
 /**
  * @swagger

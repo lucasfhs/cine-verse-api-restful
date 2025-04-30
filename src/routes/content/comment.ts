@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  findOneComment,
-  findAllComments,
-  createOneComment,
-  updateOneComment,
-  deleteOneComment,
-} from "@/controllers/content/comment";
+import { commentController } from "@/controllers/content/comment";
 import {
   findOneCommentValidation,
   commentCreateValidation,
@@ -16,25 +10,30 @@ import { validate } from "@/middleware/handleValidator";
 
 const router = Router();
 
-router.get("/comment", findAllComments);
+router.get("/comment", commentController.findAll);
 router.get(
   "/comment/:id",
   findOneCommentValidation(),
   validate,
-  findOneComment
+  commentController.findOne
 );
-router.post("/comment", commentCreateValidation(), validate, createOneComment);
+router.post(
+  "/comment",
+  commentCreateValidation(),
+  validate,
+  commentController.createOne
+);
 router.put(
   "/comment/:id",
   updateCommentValidation(),
   validate,
-  updateOneComment
+  commentController.updateOne
 );
 router.delete(
   "/comment/:id",
   deleteOneCommentValidation(),
   validate,
-  deleteOneComment
+  commentController.deleteOne
 );
 /**
  * @swagger
