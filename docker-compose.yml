@@ -29,9 +29,6 @@ services:
       - redis
     env_file:
       - .env
-    environment:
-      MONGO_DB_URI: mongodb://mongo:27017/expressApi
-
 volumes:
   mongo-data:
   redis-data:

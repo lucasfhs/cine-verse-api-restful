@@ -84,6 +84,12 @@ The system will automatically:
 
 ---
 
+#TODO:
+Add DEV SETUP
+docker run -d --name mongodb-dev -p 27017:27017 mongo
+docker run -d --name redis-dev -p 6379:6379 redis
+npm run dev
+
 ## **🔐 Functional Requirements**
 
 ### **Auth & Users**
@@ -369,4 +375,3 @@ For troubleshooting, check the Swagger docs at `http://localhost:8080/api-docs` 
 
 **Need Help?**  
 Check the Swagger docs at `http://localhost:8080/api-docs` after startup!
-
