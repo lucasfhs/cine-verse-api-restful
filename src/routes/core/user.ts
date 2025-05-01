@@ -37,7 +37,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: User
- *   description: Operações relacionadas a usuários
+ *   description: User management operations
  */
 
 /**
@@ -49,33 +49,41 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do usuário
+ *           description: Unique user ID
  *         name:
  *           type: string
- *           description: Nome completo do usuário
- *         nickname:
- *           type: string
- *           description: Apelido ou nome de exibição
- *         email:
- *           type: string
- *           format: email
- *           description: Endereço de email do usuário
- *         password:
- *           type: string
- *           format: password
- *           description: Senha (hash)
+ *           description: User's full name (automatically capitalized)
  *         role:
  *           type: string
  *           enum: [admin, common, film critic]
- *           description: Papel do usuário no sistema
+ *           description: User's role in the system
+ *         accountId:
+ *           type: string
+ *           description: Reference to the associated Account
  *         avatar:
  *           type: string
- *           description: URL da imagem de avatar
- *         phoneNumber:
+ *           format: url
+ *           description: URL of the user's avatar image
+ *         phoneNumbers:
  *           type: array
  *           items:
  *             type: string
- *           description: Lista de telefones do usuário
+ *           description: Array of user's phone numbers
+ *         address:
+ *           type: object
+ *           properties:
+ *             street:
+ *               type: string
+ *             neighborhood:
+ *               type: string
+ *             city:
+ *               type: string
+ *             state:
+ *               type: string
+ *             postalCode:
+ *               type: string
+ *             country:
+ *               type: string
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -88,11 +96,11 @@ router.delete(
  * @swagger
  * /user:
  *   get:
- *     summary: Lista todos os usuários
+ *     summary: List all users
  *     tags: [User]
  *     responses:
  *       200:
- *         description: Lista de usuários retornada com sucesso
+ *         description: List of users retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -107,27 +115,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/User'
  *       404:
- *         description: Nenhum usuário encontrado
+ *         description: No users found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /user/{id}:
  *   get:
- *     summary: Busca um usuário por ID
+ *     summary: Get a user by ID
  *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do usuário
+ *         description: Valid MongoDB ID of the user
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Usuário encontrado com sucesso
+ *         description: User retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -137,19 +145,19 @@ router.delete(
  *                   type: boolean
  *                 data:
  *                   $ref: '#/components/schemas/User'
- *       404:
- *         description: Usuário não encontrado
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID format
+ *       404:
+ *         description: User not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /user:
  *   post:
- *     summary: Cria um novo usuário
+ *     summary: Create a new user
  *     tags: [User]
  *     requestBody:
  *       required: true
@@ -159,35 +167,53 @@ router.delete(
  *             type: object
  *             required:
  *               - name
- *               - nickname
- *               - email
- *               - password
  *               - role
+ *               - accountId
  *             properties:
  *               name:
  *                 type: string
- *               nickname:
- *                 type: string
- *               email:
- *                 type: string
- *                 format: email
- *               password:
- *                 type: string
- *               rePassword:
- *                 type: string
- *                 description: Confirmação de senha
+ *                 example: "John Doe"
  *               role:
  *                 type: string
  *                 enum: [admin, common, film critic]
+ *                 example: "common"
+ *               accountId:
+ *                 type: string
+ *                 description: Valid MongoDB ID of the associated account
+ *                 example: "507f191e810c19729de860ea"
  *               avatar:
  *                 type: string
- *               phoneNumber:
+ *                 format: url
+ *                 example: "https://example.com/avatar.jpg"
+ *               phoneNumbers:
  *                 type: array
  *                 items:
  *                   type: string
+ *                 example: ["+5511999999999"]
+ *               address:
+ *                 type: object
+ *                 properties:
+ *                   street:
+ *                     type: string
+ *                     example: "123 Main St"
+ *                   neighborhood:
+ *                     type: string
+ *                     example: "Downtown"
+ *                   city:
+ *                     type: string
+ *                     example: "São Paulo"
+ *                   state:
+ *                     type: string
+ *                     example: "SP"
+ *                   postalCode:
+ *                     type: string
+ *                     example: "01001000"
+ *                   country:
+ *                     type: string
+ *                     example: "Brazil"
  *     responses:
  *       201:
- *         description: Usuário criado com sucesso
+ *         description: User created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -198,24 +224,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/User'
  *       400:
- *         description: Dados inválidos
- *       409:
- *         description: Usuário já cadastrado
+ *         description: Validation error (invalid role, missing required fields, etc.)
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /user/{id}:
  *   put:
- *     summary: Atualiza um usuário existente
+ *     summary: Update a user
  *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do usuário
+ *         description: Valid MongoDB ID of the user to update
  *         schema:
  *           type: string
  *     requestBody:
@@ -227,54 +251,68 @@ router.delete(
  *             properties:
  *               name:
  *                 type: string
- *               nickname:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
+ *                 example: "Jane Doe"
  *               role:
  *                 type: string
  *                 enum: [admin, common, film critic]
+ *                 example: "film critic"
  *               avatar:
  *                 type: string
- *               phoneNumber:
+ *                 format: url
+ *                 example: "https://example.com/new-avatar.jpg"
+ *               phoneNumbers:
  *                 type: array
  *                 items:
  *                   type: string
+ *                 example: ["+5511888888888", "+5511999999999"]
+ *               address:
+ *                 type: object
+ *                 properties:
+ *                   street:
+ *                     type: string
+ *                   neighborhood:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   state:
+ *                     type: string
+ *                   postalCode:
+ *                     type: string
+ *                   country:
+ *                     type: string
  *     responses:
  *       200:
- *         description: Usuário atualizado com sucesso
+ *         description: User updated successfully
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid input data
  *       404:
- *         description: Usuário não encontrado
+ *         description: User not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /user/{id}:
  *   delete:
- *     summary: Remove um usuário pelo ID
+ *     summary: Delete a user
  *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do usuário
+ *         description: Valid MongoDB ID of the user to delete
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Usuário removido com sucesso
+ *         description: User deleted successfully
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID format
  *       404:
- *         description: Usuário não encontrado
+ *         description: User not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 export default router;

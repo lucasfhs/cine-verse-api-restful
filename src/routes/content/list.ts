@@ -38,7 +38,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: List
- *   description: Operações para gerenciar listas
+ *   description: Operations for managing lists
  */
 
 /**
@@ -50,7 +50,7 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: Identificador único da lista
+ *           description: Unique identifier of the list
  *         name:
  *           type: string
  *           example: "Shopping List"
@@ -60,22 +60,22 @@ router.delete(
  *         createdAt:
  *           type: string
  *           format: date-time
- *           description: Data de criação da lista
+ *           description: List creation date
  *         updatedAt:
  *           type: string
  *           format: date-time
- *           description: Data da última atualização da lista
+ *           description: Date of last list update
  */
 
 /**
  * @swagger
  * /list:
  *   get:
- *     summary: Retorna todas as listas
+ *     summary: Returns all lists
  *     tags: [List]
  *     responses:
  *       200:
- *         description: Retorna uma lista de todas as listas
+ *         description: Returns an array of all lists
  *         content:
  *           application/json:
  *             schema:
@@ -92,27 +92,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/List'
  *       404:
- *         description: Nenhuma lista encontrada
+ *         description: No lists found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /list/{id}:
  *   get:
- *     summary: Retorna uma lista específica pelo ID
+ *     summary: Returns a specific list by ID
  *     tags: [List]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da lista
+ *         description: List ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Retorna a lista com o ID especificado
+ *         description: Returns the list with the specified ID
  *         content:
  *           application/json:
  *             schema:
@@ -124,18 +124,18 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/List'
  *       404:
- *         description: Lista não encontrada
+ *         description: List not found
  *       400:
- *         description: Formato de ID inválido
+ *         description: Invalid ID format
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /list:
  *   post:
- *     summary: Cria uma nova lista
+ *     summary: Creates a new list
  *     tags: [List]
  *     requestBody:
  *       required: true
@@ -152,7 +152,7 @@ router.delete(
  *                 example: "A list of items to buy for the week."
  *     responses:
  *       201:
- *         description: Lista criada com sucesso
+ *         description: List created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -164,22 +164,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/List'
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid data
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /list/{id}:
  *   put:
- *     summary: Atualiza uma lista existente pelo ID
+ *     summary: Updates an existing list by ID
  *     tags: [List]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da lista a ser atualizada
+ *         description: ID of the list to be updated
  *         schema:
  *           type: string
  *     requestBody:
@@ -197,7 +197,7 @@ router.delete(
  *                 example: "An updated list of items to buy for the week."
  *     responses:
  *       200:
- *         description: Lista atualizada com sucesso
+ *         description: List updated successfully
  *         content:
  *           application/json:
  *             schema:
@@ -209,35 +209,34 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/List'
  *       404:
- *         description: Lista não encontrada
+ *         description: List not found
  *       400:
- *         description: Formato de ID inválido ou dados inválidos
+ *         description: Invalid ID format or invalid data
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /list/{id}:
  *   delete:
- *     summary: Deleta uma lista pelo ID
+ *     summary: Deletes a list by ID
  *     tags: [List]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da lista a ser deletada
+ *         description: ID of the list to be deleted
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Lista deletada com sucesso
+ *         description: List deleted successfully
  *       404:
- *         description: Lista não encontrada
+ *         description: List not found
  *       400:
- *         description: Formato de ID inválido
+ *         description: Invalid ID format
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
-
 export default router;

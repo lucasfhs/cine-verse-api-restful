@@ -37,7 +37,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Actor
- *   description: Operações relacionadas aos atores
+ *   description: Operations related to actors
  */
 
 /**
@@ -49,17 +49,17 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do ator
+ *           description: Unique actor ID
  *         name:
  *           type: string
- *           description: Nome do ator
+ *           description: Actor's name
  *         birthdate:
  *           type: string
  *           format: date
- *           description: Data de nascimento
+ *           description: Date of birth
  *         nationality:
  *           type: string
- *           description: Nacionalidade do ator
+ *           description: Actor's nationality
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -72,11 +72,11 @@ router.delete(
  * @swagger
  * /actor:
  *   get:
- *     summary: Lista todos os atores
+ *     summary: List all actors
  *     tags: [Actor]
  *     responses:
  *       200:
- *         description: Lista de atores
+ *         description: List of actors
  *         content:
  *           application/json:
  *             schema:
@@ -92,27 +92,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Actor'
  *       404:
- *         description: Nenhum ator encontrado
+ *         description: No actors found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /actor/{id}:
  *   get:
- *     summary: Obtém um ator específico pelo ID
+ *     summary: Get a specific actor by ID
  *     tags: [Actor]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do ator
+ *         description: Actor ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Ator encontrado
+ *         description: Actor found
  *         content:
  *           application/json:
  *             schema:
@@ -123,18 +123,18 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Actor'
  *       404:
- *         description: Ator não encontrado
+ *         description: Actor not found
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /actor:
  *   post:
- *     summary: Cria um novo ator
+ *     summary: Create a new actor
  *     tags: [Actor]
  *     requestBody:
  *       required: true
@@ -152,7 +152,7 @@ router.delete(
  *                 type: string
  *     responses:
  *       201:
- *         description: Ator criado com sucesso
+ *         description: Actor created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -163,24 +163,24 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Actor'
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid data
  *       409:
- *         description: Ator duplicado
+ *         description: Duplicate actor
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /actor/{id}:
  *   put:
- *     summary: Atualiza um ator existente
+ *     summary: Update an existing actor
  *     tags: [Actor]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do ator
+ *         description: Actor ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -199,37 +199,36 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Ator atualizado
+ *         description: Actor updated
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       404:
- *         description: Ator não encontrado
+ *         description: Actor not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /actor/{id}:
  *   delete:
- *     summary: Deleta um ator
+ *     summary: Delete an actor
  *     tags: [Actor]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do ator
+ *         description: Actor ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Ator deletado com sucesso
+ *         description: Actor deleted successfully
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       404:
- *         description: Ator não encontrado
+ *         description: Actor not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
-
 export default router;

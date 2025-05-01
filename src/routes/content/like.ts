@@ -38,7 +38,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Likes
- *   description: Operações relacionadas a Likes em reviews
+ *   description: Operations related to Likes on reviews
  */
 
 /**
@@ -74,13 +74,13 @@ router.delete(
  * @swagger
  * /like:
  *   get:
- *     summary: Lista todos os Likes
+ *     summary: List all Likes
  *     tags: [Likes]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de Likes
+ *         description: List of Likes
  *         content:
  *           application/json:
  *             schema:
@@ -97,16 +97,16 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Like'
  *       401:
- *         description: Não autorizado, token JWT necessário
+ *         description: Unauthorized, JWT token required
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /like/{id}:
  *   get:
- *     summary: Retorna um Like específico pelo ID
+ *     summary: Get a specific Like by ID
  *     tags: [Likes]
  *     security:
  *       - bearerAuth: []
@@ -118,24 +118,24 @@ router.delete(
  *           type: string
  *     responses:
  *       200:
- *         description: Like encontrado
+ *         description: Like found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Like'
  *       404:
- *         description: Like não encontrado
+ *         description: Like not found
  *       401:
- *         description: Não autorizado, token JWT necessário
+ *         description: Unauthorized, JWT token required
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /like:
  *   post:
- *     summary: Cria um novo Like
+ *     summary: Create a new Like
  *     tags: [Likes]
  *     security:
  *       - bearerAuth: []
@@ -157,24 +157,24 @@ router.delete(
  *                 example: "61a2cda91f6b9d0743d83287"
  *     responses:
  *       201:
- *         description: Like criado com sucesso
+ *         description: Like created successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Like'
  *       400:
- *         description: Requisição inválida
+ *         description: Invalid request
  *       401:
- *         description: Não autorizado, token JWT necessário
+ *         description: Unauthorized, JWT token required
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /like/{id}:
  *   put:
- *     summary: Atualiza um Like pelo ID
+ *     summary: Update a Like by ID
  *     tags: [Likes]
  *     security:
  *       - bearerAuth: []
@@ -197,26 +197,26 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Like atualizado com sucesso
+ *         description: Like updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Like'
  *       400:
- *         description: ID inválido ou dados da requisição mal formatados
+ *         description: Invalid ID or malformed request data
  *       404:
- *         description: Like não encontrado
+ *         description: Like not found
  *       401:
- *         description: Não autorizado, token JWT necessário
+ *         description: Unauthorized, JWT token required
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /like/{id}:
  *   delete:
- *     summary: Deleta um Like pelo ID
+ *     summary: Delete a Like by ID
  *     tags: [Likes]
  *     security:
  *       - bearerAuth: []
@@ -228,13 +228,13 @@ router.delete(
  *           type: string
  *     responses:
  *       200:
- *         description: Like deletado com sucesso
+ *         description: Like deleted successfully
  *       404:
- *         description: Like não encontrado
+ *         description: Like not found
  *       401:
- *         description: Não autorizado, token JWT necessário
+ *         description: Unauthorized, JWT token required
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 export default router;

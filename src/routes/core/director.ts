@@ -33,12 +33,11 @@ router.delete(
   validate,
   directorController.deleteOne
 );
-
 /**
  * @swagger
  * tags:
  *   name: Director
- *   description: Operações relacionadas a diretores de filmes
+ *   description: Operations related to movie directors
  */
 
 /**
@@ -50,17 +49,17 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do diretor
+ *           description: Unique director ID
  *         name:
  *           type: string
- *           description: Nome do diretor
+ *           description: Director's name
  *         birthdate:
  *           type: string
  *           format: date
- *           description: Data de nascimento
+ *           description: Date of birth
  *         nationality:
  *           type: string
- *           description: Nacionalidade do diretor
+ *           description: Director's nationality
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -73,11 +72,11 @@ router.delete(
  * @swagger
  * /director:
  *   get:
- *     summary: Lista todos os diretores
+ *     summary: List all directors
  *     tags: [Director]
  *     responses:
  *       200:
- *         description: Lista de diretores
+ *         description: List of directors
  *         content:
  *           application/json:
  *             schema:
@@ -93,27 +92,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Director'
  *       404:
- *         description: Nenhum diretor encontrado
+ *         description: No directors found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /director/{id}:
  *   get:
- *     summary: Retorna um diretor específico pelo ID
+ *     summary: Get a specific director by ID
  *     tags: [Director]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do diretor
+ *         description: Director ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Diretor encontrado
+ *         description: Director found
  *         content:
  *           application/json:
  *             schema:
@@ -124,18 +123,18 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Director'
  *       404:
- *         description: Diretor não encontrado
+ *         description: Director not found
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /director:
  *   post:
- *     summary: Cria um novo diretor
+ *     summary: Create a new director
  *     tags: [Director]
  *     requestBody:
  *       required: true
@@ -155,7 +154,7 @@ router.delete(
  *                 type: string
  *     responses:
  *       201:
- *         description: Diretor criado com sucesso
+ *         description: Director created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -166,24 +165,24 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Director'
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid data
  *       409:
- *         description: Diretor duplicado
+ *         description: Duplicate director
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /director/{id}:
  *   put:
- *     summary: Atualiza um diretor existente
+ *     summary: Update an existing director
  *     tags: [Director]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do diretor
+ *         description: Director ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -202,37 +201,36 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Diretor atualizado com sucesso
+ *         description: Director updated successfully
  *       400:
- *         description: ID inválido ou dados inválidos
+ *         description: Invalid ID or invalid data
  *       404:
- *         description: Diretor não encontrado
+ *         description: Director not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /director/{id}:
  *   delete:
- *     summary: Remove um diretor
+ *     summary: Delete a director
  *     tags: [Director]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do diretor
+ *         description: Director ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Diretor removido com sucesso
+ *         description: Director deleted successfully
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       404:
- *         description: Diretor não encontrado
+ *         description: Director not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
-
 export default router;

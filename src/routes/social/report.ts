@@ -37,7 +37,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Report
- *   description: Operações relacionadas a denúncias de reviews
+ *   description: Operations related to review reports
  */
 
 /**
@@ -49,16 +49,16 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do denúncia
+ *           description: Unique ID of the report
  *         user_id:
  *           type: string
- *           description: ID do usuário que fez o denúncia (referência ao modelo User)
+ *           description: ID of the user who made the report (reference to User model)
  *         review_id:
  *           type: string
- *           description: ID da review que está sendo reportada (referência ao modelo Review)
+ *           description: ID of the review being reported (reference to Review model)
  *         reason:
  *           type: string
- *           description: Motivo pelo qual o denúncia foi feito
+ *           description: Reason for the report
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -71,11 +71,11 @@ router.delete(
  * @swagger
  * /report:
  *   get:
- *     summary: Lista todos os denúncias
+ *     summary: List all reports
  *     tags: [Report]
  *     responses:
  *       200:
- *         description: Lista de denúncias retornada com sucesso
+ *         description: List of reports returned successfully
  *         content:
  *           application/json:
  *             schema:
@@ -90,25 +90,25 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Report'
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /report/{id}:
  *   get:
- *     summary: Busca um denúncia específico por ID
+ *     summary: Get a specific report by ID
  *     tags: [Report]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do denúncia
+ *         description: Report ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Denúncia encontrado com sucesso
+ *         description: Report found successfully
  *         content:
  *           application/json:
  *             schema:
@@ -119,16 +119,16 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Report'
  *       404:
- *         description: Denúncia não encontrado
+ *         description: Report not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /report:
  *   post:
- *     summary: Cria um novo denúncia
+ *     summary: Create a new report
  *     tags: [Report]
  *     requestBody:
  *       required: true
@@ -149,7 +149,7 @@ router.delete(
  *                 type: string
  *     responses:
  *       201:
- *         description: Denúncia criado com sucesso
+ *         description: Report created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -160,22 +160,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Report'
  *       409:
- *         description: Erro na criação do denúncia (por exemplo, já existe um denúncia com o mesmo par de usuário e review)
+ *         description: Error creating report (e.g., a report already exists for the same user-review pair)
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /report/{id}:
  *   put:
- *     summary: Atualiza um denúncia existente
+ *     summary: Update an existing report
  *     tags: [Report]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do denúncia
+ *         description: Report ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -193,33 +193,33 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Denúncia atualizado com sucesso
+ *         description: Report updated successfully
  *       404:
- *         description: Denúncia não encontrado
+ *         description: Report not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /report/{id}:
  *   delete:
- *     summary: Remove um denúncia
+ *     summary: Delete a report
  *     tags: [Report]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do denúncia
+ *         description: Report ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Denúncia removido com sucesso
+ *         description: Report deleted successfully
  *       404:
- *         description: Denúncia não encontrado
+ *         description: Report not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 export default router;

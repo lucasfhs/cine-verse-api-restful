@@ -39,7 +39,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Comments
- *   description: Operações relacionadas a comentários
+ *   description: Comment-related operations
  */
 
 /**
@@ -65,7 +65,7 @@ router.delete(
  *           example: "661ef39fe0df482cd06b77f9"
  *         content:
  *           type: string
- *           example: "Esse é um comentário criptografado"
+ *           example: "This is an encrypted comment"
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -78,13 +78,13 @@ router.delete(
  * @swagger
  * /comment:
  *   get:
- *     summary: Lista todos os comentários
+ *     summary: List all comments
  *     tags: [Comments]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de comentários
+ *         description: List of comments
  *         content:
  *           application/json:
  *             schema:
@@ -104,7 +104,7 @@ router.delete(
  * @swagger
  * /comment/{id}:
  *   get:
- *     summary: Retorna um comentário por ID
+ *     summary: Get a comment by ID
  *     tags: [Comments]
  *     security:
  *       - bearerAuth: []
@@ -116,20 +116,20 @@ router.delete(
  *           type: string
  *     responses:
  *       200:
- *         description: Comentário encontrado
+ *         description: Comment found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Comment'
  *       404:
- *         description: Comentário não encontrado
+ *         description: Comment not found
  */
 
 /**
  * @swagger
  * /comment:
  *   post:
- *     summary: Cria um novo comentário
+ *     summary: Create a new comment
  *     tags: [Comments]
  *     security:
  *       - bearerAuth: []
@@ -152,10 +152,10 @@ router.delete(
  *                 example: "661ef39fe0df482cd06b77f9"
  *               content:
  *                 type: string
- *                 example: "Este é o conteúdo criptografado do comentário"
+ *                 example: "This is the encrypted comment content"
  *     responses:
  *       201:
- *         description: Comentário criado com sucesso
+ *         description: Comment created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -166,7 +166,7 @@ router.delete(
  * @swagger
  * /comment/{id}:
  *   put:
- *     summary: Atualiza um comentário existente
+ *     summary: Update an existing comment
  *     tags: [Comments]
  *     security:
  *       - bearerAuth: []
@@ -191,20 +191,20 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Comentário atualizado com sucesso
+ *         description: Comment updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Comment'
  *       404:
- *         description: Comentário não encontrado
+ *         description: Comment not found
  */
 
 /**
  * @swagger
  * /comment/{id}:
  *   delete:
- *     summary: Remove um comentário
+ *     summary: Delete a comment
  *     tags: [Comments]
  *     security:
  *       - bearerAuth: []
@@ -216,9 +216,9 @@ router.delete(
  *           type: string
  *     responses:
  *       200:
- *         description: Comentário deletado com sucesso
+ *         description: Comment deleted successfully
  *       404:
- *         description: Comentário não encontrado
+ *         description: Comment not found
  */
 
 export default router;

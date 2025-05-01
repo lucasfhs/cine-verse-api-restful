@@ -38,7 +38,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Review
- *   description: Operações para gerenciar revisões de filmes
+ *   description: Operations for managing movie reviews
  */
 
 /**
@@ -50,44 +50,44 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: Identificador único da revisão
+ *           description: Unique identifier of the review
  *         user_id:
  *           type: string
- *           description: ID do usuário que fez a revisão (referencia o modelo User)
+ *           description: ID of the user who made the review (references the User model)
  *         movie_id:
  *           type: string
- *           description: ID do filme sendo revisado (referencia o modelo Movie)
+ *           description: ID of the movie being reviewed (references the Movie model)
  *         rating:
  *           type: integer
- *           description: Avaliação do filme (1-5 estrelas)
+ *           description: Movie rating (1-5 stars)
  *           example: 4
  *         content:
  *           type: string
- *           description: Texto da revisão
- *           example: "Filme muito bom, recomendo!"
+ *           description: Review text
+ *           example: "Great movie, highly recommended!"
  *         spoiler:
  *           type: boolean
- *           description: Flag indicando se a revisão contém spoilers
+ *           description: Flag indicating if the review contains spoilers
  *           example: false
  *         createdAt:
  *           type: string
  *           format: date-time
- *           description: Data de criação da revisão
+ *           description: Review creation date
  *         updatedAt:
  *           type: string
  *           format: date-time
- *           description: Data da última atualização da revisão
+ *           description: Date of last review update
  */
 
 /**
  * @swagger
  * /review:
  *   get:
- *     summary: Retorna todas as revisões
+ *     summary: Returns all reviews
  *     tags: [Review]
  *     responses:
  *       200:
- *         description: Retorna uma lista de todas as revisões
+ *         description: Returns a list of all reviews
  *         content:
  *           application/json:
  *             schema:
@@ -104,27 +104,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Review'
  *       404:
- *         description: Nenhuma revisão encontrada
+ *         description: No reviews found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /review/{id}:
  *   get:
- *     summary: Retorna uma revisão específica pelo ID
+ *     summary: Returns a specific review by ID
  *     tags: [Review]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da revisão
+ *         description: Review ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Retorna a revisão com o ID especificado
+ *         description: Returns the review with the specified ID
  *         content:
  *           application/json:
  *             schema:
@@ -136,18 +136,18 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Review'
  *       404:
- *         description: Revisão não encontrada
+ *         description: Review not found
  *       400:
- *         description: Formato de ID inválido
+ *         description: Invalid ID format
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /review:
  *   post:
- *     summary: Cria uma nova revisão
+ *     summary: Creates a new review
  *     tags: [Review]
  *     requestBody:
  *       required: true
@@ -158,23 +158,23 @@ router.delete(
  *             properties:
  *               user_id:
  *                 type: string
- *                 description: ID do usuário que está criando a revisão
+ *                 description: ID of the user creating the review
  *               movie_id:
  *                 type: string
- *                 description: ID do filme sendo revisado
+ *                 description: ID of the movie being reviewed
  *               rating:
  *                 type: integer
- *                 description: Avaliação dada ao filme (1-5)
+ *                 description: Rating given to the movie (1-5)
  *               content:
  *                 type: string
- *                 description: Conteúdo da revisão
+ *                 description: Review content
  *               spoiler:
  *                 type: boolean
- *                 description: Se a revisão contém spoilers
+ *                 description: Whether the review contains spoilers
  *                 default: false
  *     responses:
  *       201:
- *         description: Revisão criada com sucesso
+ *         description: Review created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -186,22 +186,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Review'
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid data
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /review/{id}:
  *   put:
- *     summary: Atualiza uma revisão existente pelo ID
+ *     summary: Updates an existing review by ID
  *     tags: [Review]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da revisão a ser atualizada
+ *         description: ID of the review to be updated
  *         schema:
  *           type: string
  *     requestBody:
@@ -213,16 +213,16 @@ router.delete(
  *             properties:
  *               rating:
  *                 type: integer
- *                 description: Avaliação atualizada (1-5)
+ *                 description: Updated rating (1-5)
  *               content:
  *                 type: string
- *                 description: Texto da revisão atualizada
+ *                 description: Updated review text
  *               spoiler:
  *                 type: boolean
- *                 description: Se a revisão contém spoilers
+ *                 description: Whether the review contains spoilers
  *     responses:
  *       200:
- *         description: Revisão atualizada com sucesso
+ *         description: Review updated successfully
  *         content:
  *           application/json:
  *             schema:
@@ -234,35 +234,35 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Review'
  *       404:
- *         description: Revisão não encontrada
+ *         description: Review not found
  *       400:
- *         description: Formato de ID inválido ou dados inválidos
+ *         description: Invalid ID format or invalid data
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /review/{id}:
  *   delete:
- *     summary: Deleta uma revisão pelo ID
+ *     summary: Deletes a review by ID
  *     tags: [Review]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da revisão a ser deletada
+ *         description: ID of the review to be deleted
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Revisão deletada com sucesso
+ *         description: Review deleted successfully
  *       404:
- *         description: Revisão não encontrada
+ *         description: Review not found
  *       400:
- *         description: Formato de ID inválido
+ *         description: Invalid ID format
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 export default router;

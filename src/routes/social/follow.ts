@@ -37,7 +37,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Follow
- *   description: Operações relacionadas a seguidores e seguidos
+ *   description: Operations related to followers and following
  */
 
 /**
@@ -49,13 +49,13 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do relacionamento
+ *           description: Unique ID of the relationship
  *         follower_id:
  *           type: string
- *           description: ID do usuário que está seguindo (referência ao User)
+ *           description: ID of the user who is following (reference to User)
  *         followed_id:
  *           type: string
- *           description: ID do usuário que está sendo seguido (referência ao User)
+ *           description: ID of the user being followed (reference to User)
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -68,11 +68,11 @@ router.delete(
  * @swagger
  * /follow:
  *   get:
- *     summary: Lista todos os relacionamentos de seguimento
+ *     summary: List all follow relationships
  *     tags: [Follow]
  *     responses:
  *       200:
- *         description: Lista de follows retornada com sucesso
+ *         description: List of follows returned successfully
  *         content:
  *           application/json:
  *             schema:
@@ -87,25 +87,25 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Follow'
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /follow/{id}:
  *   get:
- *     summary: Busca um follow específico por ID
+ *     summary: Get a specific follow relationship by ID
  *     tags: [Follow]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do relacionamento follow
+ *         description: Follow relationship ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Follow encontrado com sucesso
+ *         description: Follow found successfully
  *         content:
  *           application/json:
  *             schema:
@@ -116,16 +116,16 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Follow'
  *       404:
- *         description: Follow não encontrado
+ *         description: Follow not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /follow:
  *   post:
- *     summary: Cria um novo relacionamento de follow
+ *     summary: Create a new follow relationship
  *     tags: [Follow]
  *     requestBody:
  *       required: true
@@ -143,7 +143,7 @@ router.delete(
  *                 type: string
  *     responses:
  *       201:
- *         description: Follow criado com sucesso
+ *         description: Follow created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -154,22 +154,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Follow'
  *       409:
- *         description: O relacionamento já existe
+ *         description: Relationship already exists
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /follow/{id}:
  *   put:
- *     summary: Atualiza um relacionamento de follow existente
+ *     summary: Update an existing follow relationship
  *     tags: [Follow]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do follow
+ *         description: Follow ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -185,33 +185,32 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Follow atualizado com sucesso
+ *         description: Follow updated successfully
  *       404:
- *         description: Follow não encontrado
+ *         description: Follow not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /follow/{id}:
  *   delete:
- *     summary: Remove um relacionamento de follow
+ *     summary: Delete a follow relationship
  *     tags: [Follow]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do follow
+ *         description: Follow ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Follow removido com sucesso
+ *         description: Follow deleted successfully
  *       404:
- *         description: Follow não encontrado
+ *         description: Follow not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
-
 export default router;

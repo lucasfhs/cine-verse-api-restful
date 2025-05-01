@@ -37,7 +37,7 @@ router.delete(
  * @swagger
  * tags:
  *   name: Message
- *   description: Operações relacionadas a mensagens entre usuários
+ *   description: Operations related to messages between users
  */
 
 /**
@@ -49,35 +49,35 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único da mensagem
+ *           description: Unique message ID
  *         sender_id:
  *           type: string
- *           description: ID do remetente (referência ao User)
+ *           description: Sender ID (reference to User)
  *         receiver_id:
  *           type: string
- *           description: ID do destinatário (referência ao User)
+ *           description: Recipient ID (reference to User)
  *         content:
  *           type: string
- *           description: Conteúdo descriptografado da mensagem
+ *           description: Decrypted message content
  *         createdAt:
  *           type: string
  *           format: date-time
- *           description: Data de criação da mensagem
+ *           description: Message creation date
  *         updatedAt:
  *           type: string
  *           format: date-time
- *           description: Data da última atualização da mensagem
+ *           description: Message last update date
  */
 
 /**
  * @swagger
  * /message:
  *   get:
- *     summary: Lista todas as mensagens
+ *     summary: List all messages
  *     tags: [Message]
  *     responses:
  *       200:
- *         description: Lista de mensagens retornada com sucesso
+ *         description: Message list retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -92,27 +92,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Message'
  *       404:
- *         description: Nenhuma mensagem encontrada
+ *         description: No messages found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /message/{id}:
  *   get:
- *     summary: Busca uma mensagem pelo ID
+ *     summary: Get a message by ID
  *     tags: [Message]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da mensagem
+ *         description: Message ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Mensagem encontrada com sucesso
+ *         description: Message retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -123,16 +123,16 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Message'
  *       404:
- *         description: Mensagem não encontrada
+ *         description: Message not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /message:
  *   post:
- *     summary: Cria uma nova mensagem
+ *     summary: Create a new message
  *     tags: [Message]
  *     requestBody:
  *       required: true
@@ -153,7 +153,7 @@ router.delete(
  *                 type: string
  *     responses:
  *       201:
- *         description: Mensagem criada com sucesso
+ *         description: Message created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -164,22 +164,22 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Message'
  *       409:
- *         description: Remetente e destinatário devem ser diferentes
+ *         description: Sender and recipient must be different
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /message/{id}:
  *   put:
- *     summary: Atualiza uma mensagem existente
+ *     summary: Update an existing message
  *     tags: [Message]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da mensagem
+ *         description: Message ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -197,33 +197,32 @@ router.delete(
  *                 type: string
  *     responses:
  *       200:
- *         description: Mensagem atualizada com sucesso
+ *         description: Message updated successfully
  *       404:
- *         description: Mensagem não encontrada
+ *         description: Message not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /message/{id}:
  *   delete:
- *     summary: Remove uma mensagem pelo ID
+ *     summary: Delete a message by ID
  *     tags: [Message]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID da mensagem
+ *         description: Message ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Mensagem removida com sucesso
+ *         description: Message deleted successfully
  *       404:
- *         description: Mensagem não encontrada
+ *         description: Message not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
-
 export default router;

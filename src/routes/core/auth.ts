@@ -22,34 +22,63 @@ router.get("/logout", refreshAuthMiddleware, logout);
  * @swagger
  * tags:
  *   name: Auth
- *   description: Operações de autenticação de usuários
+ *   description: Authentication and authorization operations
  */
 
 /**
  * @swagger
  * components:
+ *   schemas:
+ *     Account:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The account's username
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: The account's email address
+ *         password:
+ *           type: string
+ *           format: password
+ *           description: The account's password (hashed)
+ *     TokenResponse:
+ *       type: object
+ *       properties:
+ *         accessToken:
+ *           type: string
+ *           description: JWT access token
+ *     LogoutResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Logout status message
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *         error:
+ *           type: object
+ *           properties:
+ *             code:
+ *               type: integer
+ *             message:
+ *               type: string
  *   securitySchemes:
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
  *       bearerFormat: JWT
- *   schemas:
- *     Auth:
- *       type: object
- *       properties:
- *         accessToken:
- *           type: string
- *           description: Token de acesso gerado após login ou refresh
- *         refreshToken:
- *           type: string
- *           description: Token de atualização usado para renovar o token de acesso
  */
 
 /**
  * @swagger
  * /register:
  *   post:
- *     summary: Registra um novo usuário
+ *     summary: Register a new account
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -57,34 +86,44 @@ router.get("/logout", refreshAuthMiddleware, logout);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *               - rePassword
+ *               - email
+ *               - securityAnswer
  *             properties:
- *               name:
+ *               username:
  *                 type: string
- *                 example: "John Doe"
- *               nickname:
- *                 type: string
- *                 example: "johnd"
- *               email:
- *                 type: string
- *                 example: "john.doe@example.com"
+ *                 description: Unique username for the account
+ *                 example: "john_doe"
  *               password:
  *                 type: string
- *                 example: "password123"
+ *                 format: password
+ *                 description: Must be at least 8 characters long, contain uppercase, lowercase, number and special character
+ *                 example: "StrongPass123!"
  *               rePassword:
  *                 type: string
- *                 example: "password123"
- *               role:
+ *                 format: password
+ *                 description: Must match the password field exactly
+ *                 example: "StrongPass123!"
+ *               email:
  *                 type: string
- *                 example: "common"
- *               avatar:
+ *                 format: email
+ *                 description: Valid email address
+ *                 example: "john@example.com"
+ *               recoveryEmail:
  *                 type: string
- *                 example: "http://example.com/avatar.jpg"
- *               phoneNumber:
+ *                 format: email
+ *                 description: Optional recovery email address
+ *                 example: "john.recovery@example.com"
+ *               securityAnswer:
  *                 type: string
- *                 example: "+123456789"
+ *                 description: Answer for security question
+ *                 example: "My first pet was Max"
  *     responses:
  *       201:
- *         description: Usuário criado com sucesso
+ *         description: Account created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -93,20 +132,53 @@ router.get("/logout", refreshAuthMiddleware, logout);
  *                 success:
  *                   type: boolean
  *                   example: true
- *                 data:
- *                   type: object
- *                   additionalProperties: true
+ *                 message:
+ *                   type: string
+ *                   example: "Account created successfully."
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       msg:
+ *                         type: string
+ *                       param:
+ *                         type: string
+ *                       location:
+ *                         type: string
+ *                   example:
+ *                     - msg: "The password is not strong enough."
+ *                       param: "password"
+ *                       location: "body"
+ *                     - msg: "Passwords do not match."
+ *                       param: "rePassword"
+ *                       location: "body"
  *       409:
- *         description: Conflito, e-mail já registrado
+ *         description: Conflict - Username or email already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 
 /**
  * @swagger
  * /login:
  *   post:
- *     summary: Realiza login do usuário e gera os tokens de acesso
+ *     summary: Login with username/email and password
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -114,71 +186,92 @@ router.get("/logout", refreshAuthMiddleware, logout);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - password
  *             properties:
+ *               username:
+ *                 type: string
  *               email:
  *                 type: string
- *                 example: "john.doe@example.com"
+ *                 format: email
  *               password:
  *                 type: string
- *                 example: "password123"
+ *                 format: password
  *     responses:
  *       200:
- *         description: Login bem-sucedido, retorna o token de acesso
+ *         description: Login successful
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 accessToken:
- *                   type: string
- *                   description: Token de acesso gerado após login
- *       401:
- *         description: Credenciais inválidas
+ *               $ref: '#/components/schemas/TokenResponse'
+ *         headers:
+ *           Set-Cookie:
+ *             schema:
+ *               type: string
+ *               example: refreshToken=abcde12345; Path=/; HttpOnly; Secure; SameSite=Strict
+ *       406:
+ *         description: Not Acceptable - Invalid credentials
  *       500:
- *         description: Erro no processo de login
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /refresh-token:
- *   post:
- *     summary: Gera um novo token de acesso a partir de um refresh token válido
+ *   get:
+ *     summary: Refresh access token using refresh token
  *     tags: [Auth]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     responses:
  *       200:
- *         description: Novo token de acesso gerado
+ *         description: New access token generated
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 accessToken:
- *                   type: string
- *                   description: Novo token de acesso
+ *               $ref: '#/components/schemas/TokenResponse'
  *       401:
- *         description: Refresh token inválido ou expirado
+ *         description: Unauthorized - Refresh token missing or invalid
  *       403:
- *         description: Refresh token foi invalidado
+ *         description: Forbidden - Refresh token blacklisted
  *       500:
- *         description: Erro ao gerar novo token de acesso
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /logout:
- *   post:
- *     summary: Realiza logout do usuário, invalidando os tokens de acesso e refresh
+ *   get:
+ *     summary: Logout user and invalidate tokens
  *     tags: [Auth]
  *     security:
+ *       - cookieAuth: []
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Logout bem-sucedido, tokens invalidados
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LogoutResponse'
+ *         headers:
+ *           Set-Cookie:
+ *             schema:
+ *               type: string
+ *               example: refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT
  *       400:
- *         description: Token ausente ou inválido
+ *         description: Bad Request - Missing tokens
  *       500:
- *         description: Erro ao realizar o logout
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     cookieAuth:
+ *       type: apiKey
+ *       in: cookie
+ *       name: refreshToken
  */
 export default router;

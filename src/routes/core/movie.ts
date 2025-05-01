@@ -35,11 +35,12 @@ router.delete(
   validate,
   movieController.deleteOne
 );
+
 /**
  * @swagger
  * tags:
  *   name: Movie
- *   description: Operações relacionadas a filmes
+ *   description: Movie-related operations
  */
 
 /**
@@ -51,39 +52,39 @@ router.delete(
  *       properties:
  *         _id:
  *           type: string
- *           description: ID único do filme
+ *           description: Unique movie ID
  *         title:
  *           type: string
- *           description: Título do filme
+ *           description: Movie title
  *         description:
  *           type: string
- *           description: Descrição do filme
+ *           description: Movie description
  *         year:
  *           type: integer
- *           description: Ano de lançamento
+ *           description: Release year
  *         genre:
  *           type: array
  *           items:
  *             type: string
- *           description: Gêneros do filme
+ *           description: Movie genres
  *         average_rating:
  *           type: number
  *           format: float
- *           description: Nota média do filme
+ *           description: Movie average rating
  *           example: 4.5
  *         tmdb_id:
  *           type: string
- *           description: ID do filme no TMDb
+ *           description: Movie ID from TMDb
  *         actors:
  *           type: array
  *           items:
  *             type: string
- *             description: Referência a um ator
+ *             description: Reference to an actor
  *         directors:
  *           type: array
  *           items:
  *             type: string
- *             description: Referência a um diretor
+ *             description: Reference to a director
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -96,11 +97,11 @@ router.delete(
  * @swagger
  * /movie:
  *   get:
- *     summary: Retorna todos os filmes
+ *     summary: Returns all movies
  *     tags: [Movie]
  *     responses:
  *       200:
- *         description: Lista de filmes retornada com sucesso
+ *         description: List of movies returned successfully
  *         content:
  *           application/json:
  *             schema:
@@ -115,27 +116,27 @@ router.delete(
  *                   items:
  *                     $ref: '#/components/schemas/Movie'
  *       404:
- *         description: Nenhum filme encontrado
+ *         description: No movies found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /movie/{id}:
  *   get:
- *     summary: Retorna um filme pelo ID
+ *     summary: Returns a movie by ID
  *     tags: [Movie]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do filme
+ *         description: Movie ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Filme encontrado
+ *         description: Movie found
  *         content:
  *           application/json:
  *             schema:
@@ -146,18 +147,18 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Movie'
  *       404:
- *         description: Filme não encontrado
+ *         description: Movie not found
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /movie:
  *   post:
- *     summary: Cria um novo filme
+ *     summary: Creates a new movie
  *     tags: [Movie]
  *     requestBody:
  *       required: true
@@ -190,7 +191,7 @@ router.delete(
  *                   type: string
  *     responses:
  *       201:
- *         description: Filme criado com sucesso
+ *         description: Movie created successfully
  *         content:
  *           application/json:
  *             schema:
@@ -201,24 +202,24 @@ router.delete(
  *                 data:
  *                   $ref: '#/components/schemas/Movie'
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid data
  *       409:
- *         description: Filme já existente
+ *         description: Movie already exists
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /movie/{id}:
  *   put:
- *     summary: Atualiza um filme existente
+ *     summary: Updates an existing movie
  *     tags: [Movie]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do filme
+ *         description: Movie ID
  *         schema:
  *           type: string
  *     requestBody:
@@ -250,37 +251,37 @@ router.delete(
  *                   type: string
  *     responses:
  *       200:
- *         description: Filme atualizado com sucesso
+ *         description: Movie updated successfully
  *       400:
- *         description: ID ou dados inválidos
+ *         description: Invalid ID or data
  *       404:
- *         description: Filme não encontrado
+ *         description: Movie not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /movie/{id}:
  *   delete:
- *     summary: Remove um filme pelo ID
+ *     summary: Deletes a movie by ID
  *     tags: [Movie]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do filme
+ *         description: Movie ID
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Filme removido com sucesso
+ *         description: Movie deleted successfully
  *       400:
- *         description: ID inválido
+ *         description: Invalid ID
  *       404:
- *         description: Filme não encontrado
+ *         description: Movie not found
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  */
 
 export default router;
