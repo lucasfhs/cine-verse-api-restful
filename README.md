@@ -14,8 +14,7 @@ Users can also create lists of their favorite films, which are displayed on thei
 
 ### **1. Project Overview**
 
-- [Introduction](#-movie-api-rest-mvc)
-- [Key Features](#-project-resume)
+- [Introduction](#cineverse-api-mvc)
 
 ### **2. Setup & Installation**
 
@@ -165,15 +164,16 @@ This will generate a `.env` file optimized for local development.
 
 ## **3. Install Dependencies**
 
-````bash
+```bash
 npm install
-
+```
 
 ## **4. Run the API in Development Mode**
+
 ```bash
 npm run dev
 
-````
+```
 
 The API will start with:
 
@@ -473,7 +473,7 @@ After starting the API (either in `dev` or `prod` mode), open:
 
 🔗 **[http://localhost:8080/api-docs](http://localhost:8080/api-docs)**
 
-![Swagger UI Preview](./project/swagger/swagger-ui-preview.png)
+![Swagger UI Preview](./project/previewSwagger.png)
 
 ---
 
@@ -485,7 +485,6 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Refresh Token (`POST /auth/refresh-token`)**
 - **Logout (`POST /auth/logout`)**
 
-![Auth Endpoints](./project/swagger/swagger-auth.png)
 
 ### **2. Movies (`/movies`)**
 
@@ -493,7 +492,7 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Search & Filtering**
 - **Poster Upload (via URL)**
 
-![Movie Endpoints](./project/swagger/swagger-movies.png)
+
 
 ### **3. Users (`/users`)**
 
@@ -501,7 +500,6 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Follow/Unfollow System**
 - **Profile Customization**
 
-![User Endpoints](./project/swagger/swagger-users.png)
 
 ### **4. Reviews & Comments (`/reviews`, `/comments`)**
 
@@ -509,7 +507,7 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Like/Unlike Reviews**
 - **Report Inappropriate Content**
 
-![Review Endpoints](./project/swagger/swagger-reviews.png)
+
 
 ### **5. Lists (`/lists`)**
 
@@ -517,20 +515,15 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Public/Private Visibility**
 - **Add/Remove Movies**
 
-![List Endpoints](./project/swagger/swagger-lists.png)
-
 ---
 
 ## **🛠️ How to Test Endpoints in Swagger**
 
-1. **Authorize** → Click the **🔒 Lock Icon** and enter a valid JWT token (obtained from `/auth/login`).  
-   ![Swagger Auth Token](./project/swagger/swagger-auth-token.png)
+1. **Authorize** → Click the **🔒 Lock Icon** and enter a valid JWT token (obtained from `/auth/login`).
 
-2. **Try It Out** → Click the **"Try it out"** button on any endpoint.  
-   ![Swagger Try It Out](./project/swagger/swagger-try-it-out.png)
+2. **Try It Out** → Click the **"Try it out"** button on any endpoint.
 
-3. **Modify Parameters** → Edit JSON payloads or query params as needed.  
-   ![Swagger Edit Request](./project/swagger/swagger-edit-request.png)
+3. **Modify Parameters** → Edit JSON payloads or query params as needed.
 
-4. **Execute** → Hit **"Execute"** and see the live response!  
-   ![Swagger Execute Request](./project/swagger/swagger-execute.png)
+4. **Execute** → Hit **"Execute"** and see the live response!
+
