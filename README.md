@@ -61,6 +61,12 @@ Users can also create lists of their favorite films, which are displayed on thei
   - [Test Summary](#-test-summary)
   - [Test Categories](#-test-categories)
   - [How to Run Tests](#-how-to-run-tests)
+- [🛠️ Utility Functions Tests](#️-utility-functions-tests)
+  - [MongoDB Utilities](#1-mongodb-utilities)
+  - [Security Utilities](#2-security-utilities)
+  - [Validation Utilities](#3-validation-utilities)
+  - [String Utilities](#4-string-utilities)
+  - [Detailed Results](#-detailed-results)
 
 ---
 
@@ -442,6 +448,49 @@ The Movie API has been thoroughly tested to ensure all functionalities work as e
 
 ---
 
+### **🛠️ Utility Functions Tests**
+
+The utility modules have been rigorously tested with 100% pass rate:
+
+#### **1. MongoDB Utilities**
+
+```text
+✓ isValidMongodbId - Validates MongoDB ObjectIds
+✓ generateMongodbId - Generates valid and unique ObjectIds
+```
+
+#### **2. Security Utilities**
+
+```text
+✓ TokenBlackList - Manages token blacklisting
+✓ Crypto Utils - Encrypts/decrypts messages securely
+✓ Token Generation - Handles JWT creation and validation
+```
+
+#### **3. Validation Utilities**
+
+```text
+✓ ensureDifferentIds - Prevents equal field values
+✓ strongPasswordValidator - Enforces password strength
+✓ passwordFeedback - Provides password improvement suggestions
+✓ passwordCrackTime - Estimates password crack time
+✓ inNumberRange - Validates number ranges with boundaries
+```
+
+#### **4. String Utilities**
+
+```text
+✓ capitalizeName - Properly formats names with capitalization
+```
+
+**Detailed Results:**
+
+```text
+Test Suites: 8 passed, 8 total
+Tests:       35 passed, 35 total
+Time:        9.578 s
+```
+
 ### **📌 Notes**
 
 - **Redis/MongoDB**: Tests automatically handle DB connections and disconnections.
@@ -485,14 +534,11 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Refresh Token (`POST /auth/refresh-token`)**
 - **Logout (`POST /auth/logout`)**
 
-
 ### **2. Movies (`/movies`)**
 
 - **CRUD Operations**
 - **Search & Filtering**
 - **Poster Upload (via URL)**
-
-
 
 ### **3. Users (`/users`)**
 
@@ -500,14 +546,11 @@ After starting the API (either in `dev` or `prod` mode), open:
 - **Follow/Unfollow System**
 - **Profile Customization**
 
-
 ### **4. Reviews & Comments (`/reviews`, `/comments`)**
 
 - **Create/Edit Reviews (with ratings 1-5)**
 - **Like/Unlike Reviews**
 - **Report Inappropriate Content**
-
-
 
 ### **5. Lists (`/lists`)**
 
@@ -526,4 +569,3 @@ After starting the API (either in `dev` or `prod` mode), open:
 3. **Modify Parameters** → Edit JSON payloads or query params as needed.
 
 4. **Execute** → Hit **"Execute"** and see the live response!
-
