@@ -84,11 +84,64 @@ The system will automatically:
 
 ---
 
-#TODO:
-Add DEV SETUP
+# 🛠️ Development Setup (DEV)
+
+For developers who want to contribute or run the API in development mode (without Docker Compose), follow these steps:
+
+## **Prerequisites**
+- Node.js (v18+ recommended)
+- MongoDB (local or Docker)
+- Redis (local or Docker)
+- npm
+
+## **1. Setup Databases with Docker (Optional)**
+Run these commands to start MongoDB and Redis in containers:
+
+```bash
 docker run -d --name mongodb-dev -p 27017:27017 mongo
 docker run -d --name redis-dev -p 6379:6379 redis
+```
+
+## **2. Generate DEV Environment File**
+Execute the environment generator script and select **"dev"** when prompted:
+
+### Linux/macOS
+```bash
+./generateEnvFileUnix.sh
+```
+### Windows (PowerShell)
+```powershell
+.\generateEnvFileWindows.ps1
+```
+
+When asked:  
+`Is this for development? (dev/prod):` → Type **`dev`**
+
+This will generate a `.env` file optimized for local development.
+
+## **3. Install Dependencies**
+```bash
+npm install
+
+
+## **4. Run the API in Development Mode**
+```bash
 npm run dev
+
+```
+
+The API will start with:
+- **Hot-reload** (changes trigger automatic restarts)
+---
+
+### **Key Differences: DEV vs PROD**
+
+| Feature          | Development (`dev`)       | Production (`prod`)        |
+|------------------|---------------------------|----------------------------|
+| **Logging**      | Verbose (debug level)     | Warnings/errors only       |
+| **CORS**         | Allowed for localhost     | Restricted to prod domains |
+| **Database**     | Local MongoDB/Redis       | Dockerized services        |
+
 
 ## **🔐 Functional Requirements**
 
@@ -144,15 +197,14 @@ npm run dev
 | ID    | Description                               |
 | ----- | ----------------------------------------- |
 | RNF06 | 95% of requests must respond within 500ms |
-| RNF07 | Redis caching for listing endpoints       |
-| RNF08 | Default pagination for list endpoints     |
+
 
 ### **Usability**
 
 | ID    | Description                            |
 | ----- | -------------------------------------- |
-| RNF14 | Complete Swagger/OpenAPI documentation |
-| RNF16 | Clear and standardized error messages  |
+| RNF07 | Complete Swagger/OpenAPI documentation |
+| RNF08 | Clear and standardized error messages  |
 
 ## **📌 Use Cases**
 
@@ -162,7 +214,7 @@ Below are the primary use cases supported by the Movie API, categorized by funct
 ### **🎥 Movie Management**
 
 - **CRUD Operations**: Create, Read, Update, and Delete movies.
-- **Upload Movie Poster**: Add or update images for movie posters.
+- **Upload Movie Poster**: Add images for movie posters via url.
 - **Manage Categories**: Organize movies into categories or collections.
 - **Search Movies**: Filter movies by title, director, actor, or category.
 
@@ -170,19 +222,13 @@ Below are the primary use cases supported by the Movie API, categorized by funct
 
 - **Account Management**: Register, update, or delete user accounts.
 - **Follow Users**: Follow critics, regular users, or admins to view their activity.
-- **Moderate Users**: Admins can block, remove, or review user activity.
-- **Settings**: Update passwords or recover accounts.
 
 ### **✍️ Reviews & Feedback**
 
 - **Rate and Review**: Submit ratings (1-5) and reviews with spoiler warnings.
 - **Comment on Reviews**: Engage with other users by commenting on their reviews.
 - **Report Content**: Flag inappropriate reviews or comments for admin moderation.
-- **Authenticate Critics**: Verify the authenticity of critic accounts.
 
-### **🖼️ Media Handling**
-
-- **Provide Image Units**: Support for uploading user avatars and movie posters.
 
 ### **🔍 Discovery**
 
@@ -373,5 +419,68 @@ For troubleshooting, check the Swagger docs at `http://localhost:8080/api-docs` 
 
 ---
 
-**Need Help?**  
-Check the Swagger docs at `http://localhost:8080/api-docs` after startup!
+# 📚 Swagger Documentation  
+
+The Movie API includes **automatically generated Swagger (OpenAPI) documentation**, providing an interactive way to explore all endpoints, models, and request/response examples.  
+
+## **🔍 Accessing Swagger UI**  
+After starting the API (either in `dev` or `prod` mode), open:  
+
+🔗 **[http://localhost:8080/api-docs](http://localhost:8080/api-docs)**  
+
+![Swagger UI Preview](./project/swagger/swagger-ui-preview.png)  
+
+---
+
+## **📖 Key Sections**  
+
+### **1. Authentication (`/auth`)**  
+- **Login (`POST /auth/login`)**  
+- **Refresh Token (`POST /auth/refresh-token`)**  
+- **Logout (`POST /auth/logout`)**  
+
+![Auth Endpoints](./project/swagger/swagger-auth.png)  
+
+### **2. Movies (`/movies`)**  
+- **CRUD Operations**  
+- **Search & Filtering**  
+- **Poster Upload (via URL)**  
+
+![Movie Endpoints](./project/swagger/swagger-movies.png)  
+
+### **3. Users (`/users`)**  
+- **User Registration & Management**  
+- **Follow/Unfollow System**  
+- **Profile Customization**  
+
+![User Endpoints](./project/swagger/swagger-users.png)  
+
+### **4. Reviews & Comments (`/reviews`, `/comments`)**  
+- **Create/Edit Reviews (with ratings 1-5)**  
+- **Like/Unlike Reviews**  
+- **Report Inappropriate Content**  
+
+![Review Endpoints](./project/swagger/swagger-reviews.png)  
+
+### **5. Lists (`/lists`)**  
+- **Create Custom Movie Lists**  
+- **Public/Private Visibility**  
+- **Add/Remove Movies**  
+
+![List Endpoints](./project/swagger/swagger-lists.png)  
+
+---
+
+## **🛠️ How to Test Endpoints in Swagger**  
+1. **Authorize** → Click the **🔒 Lock Icon** and enter a valid JWT token (obtained from `/auth/login`).  
+   ![Swagger Auth Token](./project/swagger/swagger-auth-token.png)  
+
+2. **Try It Out** → Click the **"Try it out"** button on any endpoint.  
+   ![Swagger Try It Out](./project/swagger/swagger-try-it-out.png)  
+
+3. **Modify Parameters** → Edit JSON payloads or query params as needed.  
+   ![Swagger Edit Request](./project/swagger/swagger-edit-request.png)  
+
+4. **Execute** → Hit **"Execute"** and see the live response!  
+   ![Swagger Execute Request](./project/swagger/swagger-execute.png)  
+
